@@ -2,47 +2,130 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>O'zbekiston Ob-havo | Tungi rejim</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>O'zbekiston Ob-havo</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-            transition: background-color 0.3s ease, color 0.2s ease, border-color 0.3s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* KUNDUZGI REJIM (default) */
-        body {
-            background: linear-gradient(145deg, #0B3B5C 0%, #1B5A7A 50%, #2C7A9C 100%);
-            min-height: 100vh;
-            padding: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-        }
-
-        .container {
-            max-width: 500px;
+        html, body {
             width: 100%;
-            background: rgba(255, 255, 255, 0.97);
-            border-radius: 35px;
-            padding: 22px;
-            box-shadow: 0 30px 60px rgba(0, 20, 40, 0.4);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            height: 100%;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0B3B5C 0%, #1B5A7A 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
         }
 
         /* TUNGI REJIM */
         body.dark-mode {
-            background: linear-gradient(145deg, #0a0f1c 0%, #1a1f2e 50%, #2a2f3f 100%);
+            background: linear-gradient(145deg, #0a0f1c 0%, #1a1f2e 100%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 28px 28px 0 0;
+            padding: 18px 16px 20px;
+            margin: 10px auto 0;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
+            flex: 1;
+            min-height: calc(100vh - 20px);
         }
 
         body.dark-mode .container {
             background: rgba(20, 25, 35, 0.98);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Telegram Web App Header */
+        .telegram-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 12px;
+        }
+
+        .telegram-back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        .telegram-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .telegram-close-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            background: linear-gradient(135deg, #0B3B5C, #1B5A7A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px;
+            font-weight: 700;
         }
 
         body.dark-mode .header h1 {
@@ -51,10 +134,31 @@
             -webkit-text-fill-color: transparent;
         }
 
+        .date {
+            background: #E3F2FD;
+            color: #0B3B5C;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
         body.dark-mode .date {
             background: #2a2f3f;
             color: #b0c4de;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .location-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #F0F8FF;
+            padding: 8px 12px;
+            border-radius: 30px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(27, 90, 122, 0.2);
         }
 
         body.dark-mode .location-bar {
@@ -62,344 +166,120 @@
             border: 1px solid #3a4050;
         }
 
-        body.dark-mode .current-location {
-            color: #e0e0e0;
-        }
-
-        body.dark-mode .location-btn {
-            background: linear-gradient(145deg, #3a4050, #2a2f3f);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-        }
-
-        body.dark-mode .search-section {
-            background: #1e2330;
-            border: 1px solid #3a4050;
-        }
-
-        body.dark-mode .region-select {
-            background: #2a2f3f;
-            color: #e0e0e0;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
-        }
-
-        body.dark-mode .search-btn {
-            background: linear-gradient(145deg, #3a4050, #2a2f3f);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        body.dark-mode .current-weather {
-            background: linear-gradient(145deg, #252b38, #1e2330);
-            border: 1px solid #3a4050;
-        }
-
-        body.dark-mode .city-name {
-            color: #fff;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-        }
-
-        body.dark-mode .weather-icon {
-            background: #2a2f3f;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-        }
-
-        body.dark-mode .temperature {
-            color: #fff;
-        }
-
-        body.dark-mode .temperature small {
-            color: #b0c4de;
-        }
-
-        body.dark-mode .feels-like {
-            color: #b0c4de;
-        }
-
-        body.dark-mode .weather-desc {
-            background: #2a2f3f;
-            color: #fff;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.2);
-        }
-
-        body.dark-mode .sun-info {
-            background: #2a2f3f;
-            border: 1px solid #3a4050;
-        }
-
-        body.dark-mode .sun-label {
-            color: #b0c4de;
-        }
-
-        body.dark-mode .sun-time {
-            color: #fff;
-        }
-
-        body.dark-mode .grid-item {
-            background: #252b38;
-            border: 1px solid #3a4050;
-        }
-
-        body.dark-mode .grid-label {
-            color: #b0c4de;
-        }
-
-        body.dark-mode .grid-value {
-            color: #fff;
-        }
-
-        body.dark-mode .grid-unit {
-            color: #b0c4de;
-        }
-
-        body.dark-mode .rain-probability {
-            background: linear-gradient(145deg, #252b38, #1e2330);
-            border: 1px solid #3a4050;
-        }
-
-        body.dark-mode .rain-text {
-            color: #fff;
-        }
-
-        body.dark-mode .rain-percentage {
-            background: #2a2f3f;
-            color: #8ab3ff;
-        }
-
-        body.dark-mode .hourly-title {
-            color: #fff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-
-        body.dark-mode .hourly-item {
-            background: #252b38;
-            border: 1px solid #3a4050;
-        }
-
-        body.dark-mode .hourly-time {
-            color: #fff;
-        }
-
-        body.dark-mode .hourly-temp {
-            color: #8ab3ff;
-        }
-
-        body.dark-mode .hourly-rain {
-            color: #b0c4de;
-        }
-
-        body.dark-mode .forecast-item {
-            background: #252b38;
-            border: 1px solid #3a4050;
-        }
-
-        body.dark-mode .forecast-day {
-            color: #fff;
-        }
-
-        body.dark-mode .forecast-temp {
-            color: #8ab3ff;
-        }
-
-        body.dark-mode .forecast-rain {
-            color: #b0c4de;
-        }
-
-        body.dark-mode .loading p {
-            color: #fff;
-        }
-
-        body.dark-mode .error-message {
-            background: #3a2a2a;
-            color: #ff8a8a;
-            border: 1px solid #8b3a3a;
-        }
-
-        /* TUNGI REJIM TOGGLE BUTTONI */
-        .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.3);
-            border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            z-index: 100;
-            transition: all 0.3s;
-        }
-
-        .theme-toggle:active {
-            transform: scale(0.9);
-        }
-
-        body.dark-mode .theme-toggle {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .theme-toggle .sun-icon,
-        .theme-toggle .moon-icon {
-            transition: all 0.3s;
-        }
-
-        body:not(.dark-mode) .theme-toggle .moon-icon {
-            display: none;
-        }
-
-        body.dark-mode .theme-toggle .sun-icon {
-            display: none;
-        }
-
-        body.dark-mode .theme-toggle .moon-icon {
-            display: inline;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-            position: relative;
-            padding-top: 10px;
-        }
-
-        .header h1 {
-            font-size: 26px;
-            background: linear-gradient(135deg, #0B3B5C, #1B5A7A);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 8px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .date {
-            background: #E3F2FD;
-            color: #0B3B5C;
-            padding: 8px 18px;
-            border-radius: 50px;
-            font-size: 15px;
-            font-weight: 600;
-            display: inline-block;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .location-bar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #F0F8FF;
-            padding: 10px 15px;
-            border-radius: 50px;
-            margin-bottom: 18px;
-            border: 1px solid rgba(27, 90, 122, 0.2);
-        }
-
         .current-location {
             flex: 1;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             color: #0B3B5C;
             font-weight: 600;
-            font-size: 15px;
+            font-size: 14px;
             overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        body.dark-mode .current-location {
+            color: #e0e0e0;
         }
 
         .location-icon {
-            font-size: 20px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            font-size: 18px;
+            flex-shrink: 0;
         }
 
         .location-name {
-            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .location-btn {
             background: linear-gradient(145deg, #1B5A7A, #0B3B5C);
             border: none;
             color: white;
-            padding: 10px 18px;
-            border-radius: 40px;
-            font-size: 14px;
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 13px;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(27, 90, 122, 0.4);
+            transition: all 0.2s;
             border: 1px solid rgba(255,255,255,0.2);
+            flex-shrink: 0;
+        }
+
+        body.dark-mode .location-btn {
+            background: linear-gradient(145deg, #3a4050, #2a2f3f);
         }
 
         .location-btn:active {
             transform: scale(0.96);
-            box-shadow: 0 2px 6px rgba(27, 90, 122, 0.5);
         }
 
         .search-section {
             display: flex;
-            gap: 10px;
-            margin-bottom: 22px;
-            background: #F8FAFC;
-            padding: 8px;
-            border-radius: 50px;
-            border: 1px solid #D1E0EB;
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
         .region-select {
             flex: 1;
-            padding: 15px 18px;
+            padding: 12px 14px;
             border: none;
-            border-radius: 45px;
-            font-size: 15px;
+            border-radius: 30px;
+            font-size: 14px;
             font-weight: 500;
             outline: none;
             background: white;
             color: #0B3B5C;
             cursor: pointer;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
+            border: 1px solid #D1E0EB;
+        }
+
+        body.dark-mode .region-select {
+            background: #2a2f3f;
+            color: #e0e0e0;
+            border: 1px solid #3a4050;
         }
 
         .search-btn {
-            padding: 15px 28px;
+            padding: 12px 20px;
             background: linear-gradient(145deg, #1B5A7A, #0B3B5C);
             color: white;
             border: none;
-            border-radius: 45px;
-            font-size: 15px;
+            border-radius: 30px;
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 6px 15px rgba(27, 90, 122, 0.4);
+            transition: all 0.2s;
             white-space: nowrap;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        body.dark-mode .search-btn {
+            background: linear-gradient(145deg, #3a4050, #2a2f3f);
         }
 
         .search-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 3px 8px rgba(27, 90, 122, 0.5);
+            transform: scale(0.96);
         }
 
         .loading {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 20px;
         }
 
         .spinner {
-            width: 60px;
-            height: 60px;
-            border: 6px solid #E3F2FD;
-            border-top: 6px solid #1B5A7A;
+            width: 45px;
+            height: 45px;
+            border: 4px solid #E3F2FD;
+            border-top: 4px solid #1B5A7A;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            margin: 0 auto 20px;
+            margin: 0 auto 15px;
         }
 
         @keyframes spin {
@@ -407,118 +287,148 @@
             100% { transform: rotate(360deg); }
         }
 
+        body.dark-mode .spinner {
+            border: 4px solid #2a2f3f;
+            border-top: 4px solid #5d8ad9;
+        }
+
+        .loading p {
+            color: #0B3B5C;
+            font-size: 15px;
+        }
+
+        body.dark-mode .loading p {
+            color: #e0e0e0;
+        }
+
         .error-message {
             background: #FFEBEE;
             color: #C62828;
-            padding: 18px;
-            border-radius: 25px;
+            padding: 14px;
+            border-radius: 20px;
             text-align: center;
             font-weight: 600;
+            font-size: 14px;
             border: 1px solid #EF9A9A;
-            margin-bottom: 20px;
-            animation: shake 0.5s;
-        }
-
-        @keyframes shake {
-            0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)}
-        }
-
-        .weather-container {
-            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
+            margin-bottom: 16px;
         }
 
         .current-weather {
             background: linear-gradient(145deg, #F0F9FF, #E1F0FA);
-            padding: 25px 20px;
-            border-radius: 30px;
-            margin-bottom: 22px;
-            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.2);
+            padding: 18px 16px;
+            border-radius: 24px;
+            margin-bottom: 18px;
             border: 1px solid rgba(255,255,255,0.7);
         }
 
+        body.dark-mode .current-weather {
+            background: linear-gradient(145deg, #252b38, #1e2330);
+            border: 1px solid #3a4050;
+        }
+
         .city-name {
-            font-size: 32px;
+            font-size: 26px;
             color: #0B3B5C;
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-weight: 800;
-            letter-spacing: -0.5px;
-            text-shadow: 0 2px 5px rgba(255,255,255,0.5);
+        }
+
+        body.dark-mode .city-name {
+            color: #fff;
         }
 
         .weather-main {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
         }
 
         .weather-icon {
             background: white;
             border-radius: 50%;
-            padding: 15px;
-            box-shadow: 0 10px 25px rgba(27, 90, 122, 0.2);
+            padding: 8px;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body.dark-mode .weather-icon {
+            background: #2a2f3f;
         }
 
         .weather-icon img {
-            width: 100px;
-            height: 100px;
-            display: block;
-        }
-
-        .temp-block {
-            text-align: center;
+            width: 70px;
+            height: 70px;
         }
 
         .temperature {
-            font-size: 64px;
+            font-size: 48px;
             font-weight: 800;
             color: #0B3B5C;
             line-height: 1;
-            letter-spacing: -3px;
+        }
+
+        body.dark-mode .temperature {
+            color: #fff;
         }
 
         .temperature small {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 500;
             color: #2C7A9C;
         }
 
+        body.dark-mode .temperature small {
+            color: #b0c4de;
+        }
+
         .feels-like {
-            font-size: 15px;
+            font-size: 14px;
             color: #1B5A7A;
-            margin-top: 5px;
+            margin-top: 4px;
             font-weight: 600;
+            text-align: center;
+        }
+
+        body.dark-mode .feels-like {
+            color: #b0c4de;
         }
 
         .weather-desc {
             text-align: center;
-            font-size: 20px;
+            font-size: 18px;
             color: #0B3B5C;
-            margin: 20px 0 25px;
+            margin: 15px 0 18px;
             font-weight: 700;
             text-transform: capitalize;
             background: rgba(255,255,255,0.7);
-            padding: 12px;
-            border-radius: 40px;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
+            padding: 10px;
+            border-radius: 30px;
+        }
+
+        body.dark-mode .weather-desc {
+            background: #2a2f3f;
+            color: #fff;
         }
 
         .sun-info {
             display: flex;
             justify-content: space-around;
             background: rgba(255,255,255,0.7);
-            padding: 18px 12px;
-            border-radius: 50px;
-            margin-bottom: 22px;
+            padding: 14px 10px;
+            border-radius: 40px;
+            margin-bottom: 18px;
             border: 1px solid white;
+        }
+
+        body.dark-mode .sun-info {
+            background: #2a2f3f;
+            border: 1px solid #3a4050;
         }
 
         .sun-item {
@@ -526,127 +436,162 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
 
         .sun-icon {
-            font-size: 28px;
-            filter: drop-shadow(0 4px 6px rgba(255,165,0,0.3));
+            font-size: 22px;
         }
 
         .sun-label {
-            font-size: 14px;
+            font-size: 12px;
             color: #1B5A7A;
             font-weight: 600;
         }
 
+        body.dark-mode .sun-label {
+            color: #b0c4de;
+        }
+
         .sun-time {
-            font-size: 18px;
+            font-size: 15px;
             font-weight: 800;
             color: #0B3B5C;
+        }
+
+        body.dark-mode .sun-time {
+            color: #fff;
         }
 
         .weather-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 22px;
+            gap: 10px;
+            margin-bottom: 18px;
         }
 
         .grid-item {
             background: white;
-            padding: 16px 8px;
-            border-radius: 25px;
+            padding: 12px 5px;
+            border-radius: 20px;
             text-align: center;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.05);
             border: 1px solid rgba(27, 90, 122, 0.1);
         }
 
+        body.dark-mode .grid-item {
+            background: #252b38;
+            border: 1px solid #3a4050;
+        }
+
         .grid-icon {
-            font-size: 28px;
-            margin-bottom: 8px;
+            font-size: 22px;
+            margin-bottom: 4px;
             display: block;
         }
 
         .grid-label {
-            font-size: 13px;
+            font-size: 11px;
             color: #2C7A9C;
             font-weight: 600;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
+        }
+
+        body.dark-mode .grid-label {
+            color: #b0c4de;
         }
 
         .grid-value {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 800;
             color: #0B3B5C;
         }
 
+        body.dark-mode .grid-value {
+            color: #fff;
+        }
+
         .grid-unit {
-            font-size: 13px;
+            font-size: 11px;
             color: #1B5A7A;
             font-weight: 500;
         }
 
+        body.dark-mode .grid-unit {
+            color: #b0c4de;
+        }
+
         .rain-probability {
             background: linear-gradient(145deg, #E3F2FD, #BBDEFB);
-            padding: 18px;
-            border-radius: 25px;
-            margin-bottom: 25px;
+            padding: 14px;
+            border-radius: 22px;
+            margin-bottom: 22px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             border: 1px solid rgba(255,255,255,0.8);
         }
 
+        body.dark-mode .rain-probability {
+            background: linear-gradient(145deg, #252b38, #1e2330);
+            border: 1px solid #3a4050;
+        }
+
         .rain-left {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
         .rain-icon {
-            font-size: 36px;
+            font-size: 28px;
         }
 
         .rain-text {
             font-weight: 700;
             color: #0B3B5C;
-            font-size: 18px;
+            font-size: 16px;
+        }
+
+        body.dark-mode .rain-text {
+            color: #fff;
         }
 
         .rain-percentage {
-            font-size: 32px;
+            font-size: 26px;
             font-weight: 800;
             color: #1B5A7A;
             background: white;
-            padding: 8px 18px;
-            border-radius: 40px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            padding: 6px 16px;
+            border-radius: 30px;
+        }
+
+        body.dark-mode .rain-percentage {
+            background: #2a2f3f;
+            color: #8ab3ff;
         }
 
         .hourly-title {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 12px;
             color: white;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .hourly-scroll {
             display: flex;
             overflow-x: auto;
-            gap: 12px;
-            padding: 5px 0 20px;
+            gap: 10px;
+            padding: 5px 0 15px;
             scrollbar-width: thin;
-            scrollbar-color: #1B5A7A #E3F2FD;
             -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
         }
 
         .hourly-scroll::-webkit-scrollbar {
-            height: 5px;
+            height: 3px;
         }
 
         .hourly-scroll::-webkit-scrollbar-track {
@@ -659,35 +604,40 @@
             border-radius: 10px;
         }
 
-        body.dark-mode .hourly-scroll::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.05);
-        }
-
         body.dark-mode .hourly-scroll::-webkit-scrollbar-thumb {
             background: #5d8ad9;
         }
 
         .hourly-item {
             background: rgba(255,255,255,0.95);
-            min-width: 90px;
-            padding: 15px 8px;
-            border-radius: 25px;
+            min-width: 80px;
+            padding: 12px 6px;
+            border-radius: 22px;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
             border: 1px solid white;
+            scroll-snap-align: start;
+        }
+
+        body.dark-mode .hourly-item {
+            background: #252b38;
+            border: 1px solid #3a4050;
         }
 
         .hourly-time {
             font-weight: 700;
             color: #0B3B5C;
-            font-size: 16px;
-            margin-bottom: 8px;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        body.dark-mode .hourly-time {
+            color: #fff;
         }
 
         .hourly-icon {
-            width: 40px;
-            height: 40px;
-            margin: 0 auto 8px;
+            width: 35px;
+            height: 35px;
+            margin: 0 auto 6px;
         }
 
         .hourly-icon img {
@@ -699,53 +649,75 @@
         .hourly-temp {
             font-weight: 800;
             color: #1B5A7A;
-            font-size: 18px;
-            margin-bottom: 5px;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        body.dark-mode .hourly-temp {
+            color: #8ab3ff;
         }
 
         .hourly-rain {
-            font-size: 14px;
+            font-size: 12px;
             color: #2C7A9C;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 3px;
+        }
+
+        body.dark-mode .hourly-rain {
+            color: #b0c4de;
         }
 
         .weekly-forecast {
-            margin-top: 20px;
+            margin-top: 18px;
+        }
+
+        .weekly-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .forecast-item {
             background: rgba(255,255,255,0.95);
-            border-radius: 22px;
-            padding: 16px 18px;
-            margin-bottom: 10px;
+            border-radius: 20px;
+            padding: 12px 14px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             border: 1px solid white;
-            backdrop-filter: blur(5px);
+        }
+
+        body.dark-mode .forecast-item {
+            background: #252b38;
+            border: 1px solid #3a4050;
         }
 
         .forecast-left {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             flex: 1;
         }
 
         .forecast-day {
             font-weight: 700;
             color: #0B3B5C;
-            min-width: 95px;
-            font-size: 16px;
+            min-width: 80px;
+            font-size: 14px;
+        }
+
+        body.dark-mode .forecast-day {
+            color: #fff;
         }
 
         .forecast-icon {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
         }
 
         .forecast-icon img {
@@ -756,46 +728,50 @@
         .forecast-temp {
             font-weight: 800;
             color: #1B5A7A;
-            font-size: 20px;
-            min-width: 65px;
+            font-size: 18px;
+            min-width: 55px;
+        }
+
+        body.dark-mode .forecast-temp {
+            color: #8ab3ff;
         }
 
         .forecast-rain {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
             color: #2C7A9C;
             font-weight: 600;
-            font-size: 15px;
-            min-width: 60px;
+            font-size: 13px;
+            min-width: 50px;
+        }
+
+        body.dark-mode .forecast-rain {
+            color: #b0c4de;
         }
 
         .hidden {
             display: none !important;
         }
-
-        @media (max-width: 480px) {
-            .container { padding: 16px; }
-            .theme-toggle { top: 10px; right: 10px; width: 40px; height: 40px; font-size: 20px; }
-            .search-section { flex-direction: column; background: transparent; padding: 0; }
-            .region-select, .search-btn { width: 100%; }
-            .weather-grid { grid-template-columns: 1fr; }
-            .sun-info { flex-direction: column; gap: 15px; border-radius: 30px; }
-            .hourly-item { min-width: 80px; padding: 12px 6px; }
-            .forecast-item { flex-direction: column; align-items: flex-start; gap: 12px; }
-            .forecast-left { width: 100%; justify-content: space-between; }
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <button class="theme-toggle" id="themeToggle">
-            <span class="sun-icon">☀️</span>
-            <span class="moon-icon">🌙</span>
-        </button>
+    <!-- Telegram Web App Header -->
+    <div class="telegram-header">
+        <button class="telegram-back-btn" onclick="window.Telegram?.WebApp?.BackButton?.show()" style="visibility: hidden;">←</button>
+        <span class="telegram-title">🌤 Ob-havo</span>
+        <div style="display: flex; gap: 8px;">
+            <button class="theme-toggle" id="themeToggle">
+                <span class="sun-icon">☀️</span>
+                <span class="moon-icon" style="display: none;">🌙</span>
+            </button>
+            <button class="telegram-close-btn" onclick="window.Telegram?.WebApp?.close()">✕</button>
+        </div>
+    </div>
 
+    <div class="container">
         <header class="header">
-            <h1>🌦 O'ZBEKISTON OB-HAVO</h1>
+            <h1>O'ZBEKISTON OB-HAVO</h1>
             <p class="date" id="currentDate"></p>
         </header>
 
@@ -805,7 +781,7 @@
                 <span class="location-name" id="locationName">Joylashuv aniqlanmoqda...</span>
             </div>
             <button id="getLocationBtn" class="location-btn">
-                <span>📍</span> Joylashuvim
+                <span>📍</span> Joylashuv
             </button>
         </div>
 
@@ -844,7 +820,7 @@
                     <div class="weather-icon">
                         <img id="weatherIcon" src="" alt="weather">
                     </div>
-                    <div class="temp-block">
+                    <div>
                         <div class="temperature">
                             <span id="currentTemp"></span><small>°C</small>
                         </div>
@@ -909,48 +885,67 @@
             <div class="hourly-scroll" id="hourlyForecast"></div>
 
             <div class="weekly-forecast">
-                <h3 style="color:white; margin-bottom:15px; text-shadow:0 2px 5px rgba(0,0,0,0.3);">📅 7 kunlik prognoz</h3>
+                <div class="weekly-title">
+                    <span>📅</span>
+                    <span>7 kunlik prognoz</span>
+                </div>
                 <div id="weeklyForecast"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // Telegram Web App
-        const tg = window.Telegram?.WebApp || { expand: () => {}, ready: () => {} };
-        try { tg.expand(); tg.ready(); } catch(e) {}
+        // Telegram Web App initialization
+        const tg = window.Telegram?.WebApp;
+        if (tg) {
+            tg.expand(); // Expand to full screen
+            tg.ready(); // Notify Telegram that app is ready
+            tg.setHeaderColor('#0B3B5C'); // Set header color
+            tg.setBackgroundColor('#0B3B5C'); // Set background color
+            
+            // Disable vertical swipes
+            tg.disableVerticalSwipes?.();
+        }
 
-        // TUNGI REJIM FUNKSIYASI
+        // Tungi rejim funksiyasi
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
+        const sunIcon = document.querySelector('.sun-icon');
+        const moonIcon = document.querySelector('.moon-icon');
 
-        // Tungi rejimni saqlash va yuklash
         function initTheme() {
             const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
+            const hour = new Date().getHours();
+            
+            if (savedTheme === 'dark' || (savedTheme === null && (hour >= 19 || hour < 6))) {
                 body.classList.add('dark-mode');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'inline';
+                if (tg) tg.setHeaderColor('#1a1f2e');
             } else {
-                // Agar soat 19:00 dan keyin bo'lsa, avtomatik tungi rejim
-                const hour = new Date().getHours();
-                if (hour >= 19 || hour < 6) {
-                    body.classList.add('dark-mode');
-                    localStorage.setItem('theme', 'dark');
-                }
+                body.classList.remove('dark-mode');
+                sunIcon.style.display = 'inline';
+                moonIcon.style.display = 'none';
+                if (tg) tg.setHeaderColor('#0B3B5C');
             }
         }
 
-        // Tungi rejimni almashtirish
         function toggleTheme() {
             if (body.classList.contains('dark-mode')) {
                 body.classList.remove('dark-mode');
                 localStorage.setItem('theme', 'light');
+                sunIcon.style.display = 'inline';
+                moonIcon.style.display = 'none';
+                if (tg) tg.setHeaderColor('#0B3B5C');
             } else {
                 body.classList.add('dark-mode');
                 localStorage.setItem('theme', 'dark');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'inline';
+                if (tg) tg.setHeaderColor('#1a1f2e');
             }
         }
 
-        // Tungi rejim tugmasi eventi
         themeToggle.addEventListener('click', toggleTheme);
 
         // DOM elementlar
@@ -1005,9 +1000,8 @@
         // Sanani yangilash
         function updateDate() {
             const now = new Date();
-            elements.currentDate.textContent = now.toLocaleDateString('uz-UZ', { 
-                year: 'numeric', month: 'long', day: 'numeric' 
-            });
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            elements.currentDate.textContent = now.toLocaleDateString('uz-UZ', options);
         }
         updateDate();
 
@@ -1022,7 +1016,7 @@
             const diff = sunset - sunrise;
             const hours = Math.floor(diff / 3600);
             const minutes = Math.floor((diff % 3600) / 60);
-            return `${hours} soat ${minutes} daqiqa`;
+            return `${hours}:${minutes.toString().padStart(2, '0')}`;
         }
 
         // Ob-havo ma'lumotlarini olish
@@ -1051,26 +1045,22 @@
 
         // Ma'lumotlarni ko'rsatish
         function displayWeatherData(current, forecast, location) {
-            // Asosiy ma'lumotlar
             elements.cityName.textContent = location;
-            elements.weatherIcon.src = `https://openweathermap.org/img/wn/${current.weather[0].icon}@4x.png`;
+            elements.weatherIcon.src = `https://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`;
             elements.currentTemp.textContent = Math.round(current.main.temp);
             elements.feelsLike.textContent = `His qilinadi: ${Math.round(current.main.feels_like)}°C`;
             elements.weatherDescription.textContent = current.weather[0].description;
             
-            // Quyosh chiqish/botish
             const sunrise = current.sys.sunrise;
             const sunset = current.sys.sunset;
             elements.sunrise.textContent = formatTime(sunrise);
             elements.sunset.textContent = formatTime(sunset);
             elements.dayLength.textContent = calculateDayLength(sunrise, sunset);
             
-            // Boshqa ma'lumotlar
             elements.humidity.textContent = current.main.humidity;
             elements.windSpeed.textContent = current.wind.speed.toFixed(1);
             elements.pressure.textContent = current.main.pressure;
 
-            // Yomg'ir ehtimoli (hozirgi)
             const rain = current.rain ? current.rain['1h'] || current.rain['3h'] || 0 : 0;
             const rainProb = rain > 0 ? Math.min(Math.round(rain * 20), 100) : 0;
             elements.rainProbability.textContent = `${rainProb}%`;
@@ -1112,7 +1102,6 @@
                 const dayName = index === 0 ? 'Bugun' : index === 1 ? 'Ertaga' : weekDays[date.getDay()];
                 const temp = Math.round(day.main.temp);
                 const icon = day.weather[0].icon;
-                const description = day.weather[0].description;
                 const rainChance = day.pop ? Math.round(day.pop * 100) : 0;
 
                 const forecastItem = document.createElement('div');
@@ -1156,7 +1145,7 @@
                         );
                         const data = await res.json();
                         
-                        let city = data[0]?.name || data[0]?.state || 'Sizning joylashuvingiz';
+                        let city = data[0]?.name || 'Sizning joylashuvingiz';
                         elements.locationName.textContent = city;
                         await getWeatherData(latitude, longitude, city);
                     } catch {
@@ -1190,7 +1179,6 @@
             }
         }
 
-        // Yuklash holati
         function setLoading(isLoading) {
             if (isLoading) {
                 elements.loading.classList.remove('hidden');
@@ -1201,7 +1189,6 @@
             }
         }
 
-        // Xatolik ko'rsatish
         function showError(message) {
             elements.errorMessage.textContent = message;
             elements.errorMessage.classList.remove('hidden');
@@ -1213,19 +1200,34 @@
         elements.getLocationBtn.addEventListener('click', getCurrentLocation);
         elements.regionSelect.addEventListener('change', searchWeather);
 
+        // Enter tugmasi
+        elements.regionSelect.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchWeather();
+        });
+
         // Tungi rejimni ishga tushirish
         initTheme();
 
         // Sahifa yuklanganda
         window.addEventListener('load', () => {
-            setTimeout(getCurrentLocation, 1000);
+            setTimeout(getCurrentLocation, 500);
+            
+            // Fallback
             setTimeout(() => {
-                if (elements.weatherContainer.classList.contains('hidden')) {
+                if (elements.weatherContainer.classList.contains('hidden') && 
+                    !elements.loading.classList.contains('hidden') === false) {
                     elements.regionSelect.value = 'Toshkent';
                     searchWeather();
                 }
-            }, 5000);
+            }, 8000);
         });
+
+        // Telegram back button handling
+        if (tg && tg.BackButton) {
+            tg.BackButton.onClick(() => {
+                tg.close();
+            });
+        }
     </script>
 </body>
 </html>
