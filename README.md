@@ -2,8 +2,12 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>O'zbekiston Ob-havo</title>
+    <!-- To'liq moslashuvchanlik uchun meta teglar -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0B3B5C">
+    <title>O'zbekiston Ob-havo | Barcha qurilmalar uchun</title>
     <style>
         * {
             margin: 0;
@@ -12,179 +16,210 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
+        /* CSS Variables - oson moslashuv uchun */
+        :root {
+            --primary-dark: #0B3B5C;
+            --primary: #1B5A7A;
+            --primary-light: #2C7A9C;
+            --bg-gradient: linear-gradient(145deg, #0B3B5C 0%, #1B5A7A 100%);
+            --text-light: #ffffff;
+            --text-dark: #0B3B5C;
+            --card-bg: rgba(255, 255, 255, 0.98);
+            --border-radius-sm: 20px;
+            --border-radius-md: 25px;
+            --border-radius-lg: 30px;
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 12px;
+            --spacing-lg: 16px;
+            --spacing-xl: 20px;
+        }
+
+        /* Tungi rejim variables */
+        body.dark-mode {
+            --primary-dark: #0a0f1c;
+            --primary: #1a1f2e;
+            --primary-light: #2a2f3f;
+            --bg-gradient: linear-gradient(145deg, #0a0f1c 0%, #1a1f2e 100%);
+            --text-light: #ffffff;
+            --text-dark: #ffffff;
+            --card-bg: rgba(20, 25, 35, 0.98);
+        }
+
         html, body {
             width: 100%;
-            height: 100%;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background: linear-gradient(145deg, #0B3B5C 0%, #1B5A7A 100%);
+            background: var(--bg-gradient);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
             padding: 0;
             margin: 0;
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
+            position: relative;
         }
 
-        /* TUNGI REJIM */
-        body.dark-mode {
-            background: linear-gradient(145deg, #0a0f1c 0%, #1a1f2e 100%);
-        }
-
+        /* Universal container - barcha ekranlar uchun */
         .container {
             width: 100%;
-            max-width: 480px;
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 28px 28px 0 0;
-            padding: 18px 16px 20px;
-            margin: 10px auto 0;
-            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
-            flex: 1;
-            min-height: calc(100vh - 20px);
+            max-width: 1200px; /* Katta ekranlar uchun */
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        body.dark-mode .container {
-            background: rgba(20, 25, 35, 0.98);
-            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+        /* Asosiy karta */
+        .weather-card {
+            width: 100%;
+            max-width: 500px; /* Telefonlar uchun optimal */
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            padding: clamp(16px, 4vw, 24px); /* Responsive padding */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
 
-        /* Telegram Web App Header */
+        /* Katta ekranlar uchun */
+        @media (min-width: 768px) {
+            .weather-card {
+                max-width: 600px;
+                padding: 28px;
+                margin: 20px auto;
+            }
+        }
+
+        /* Juda katta ekranlar */
+        @media (min-width: 1024px) {
+            .weather-card {
+                max-width: 650px;
+                padding: 32px;
+            }
+        }
+
+        /* Telegram Header */
         .telegram-header {
+            width: 100%;
+            max-width: 500px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 8px 0 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            margin-bottom: 12px;
+            padding: 12px 0;
+            margin-bottom: 8px;
         }
 
-        .telegram-back-btn {
-            background: rgba(255, 255, 255, 0.2);
+        @media (min-width: 768px) {
+            .telegram-header {
+                max-width: 600px;
+            }
+        }
+
+        .header-btn {
+            background: rgba(255, 255, 255, 0.15);
             border: none;
-            width: 36px;
-            height: 36px;
+            width: clamp(36px, 8vw, 44px);
+            height: clamp(36px, 8vw, 44px);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: clamp(18px, 4vw, 22px);
             color: white;
             cursor: pointer;
             backdrop-filter: blur(5px);
+            transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .header-btn:active {
+            transform: scale(0.92);
+            background: rgba(255, 255, 255, 0.25);
         }
 
         .telegram-title {
             color: white;
-            font-size: 18px;
+            font-size: clamp(16px, 4vw, 20px);
             font-weight: 600;
-        }
-
-        .telegram-close-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: white;
-            cursor: pointer;
         }
 
         .theme-toggle {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
             border: none;
-            width: 36px;
-            height: 36px;
+            width: clamp(36px, 8vw, 44px);
+            height: clamp(36px, 8vw, 44px);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: clamp(18px, 4vw, 22px);
             color: white;
             cursor: pointer;
-            backdrop-filter: blur(5px);
         }
 
+        /* Header */
         .header {
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: clamp(12px, 3vw, 20px);
         }
 
         .header h1 {
-            font-size: 22px;
-            background: linear-gradient(135deg, #0B3B5C, #1B5A7A);
+            font-size: clamp(20px, 5vw, 28px);
+            background: linear-gradient(135deg, #fff, #e0e0e0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 4px;
+            margin-bottom: clamp(4px, 1vw, 8px);
             font-weight: 700;
-        }
-
-        body.dark-mode .header h1 {
-            background: linear-gradient(135deg, #8ab3ff, #5d8ad9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
         }
 
         .date {
-            background: #E3F2FD;
-            color: #0B3B5C;
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 14px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: clamp(6px, 1.5vw, 10px) clamp(12px, 3vw, 20px);
+            border-radius: 40px;
+            font-size: clamp(12px, 3vw, 15px);
             font-weight: 600;
             display: inline-block;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
         }
 
-        body.dark-mode .date {
-            background: #2a2f3f;
-            color: #b0c4de;
-        }
-
+        /* Location bar - flex-wrap bilan moslashuvchi */
         .location-bar {
             display: flex;
             align-items: center;
-            gap: 8px;
-            background: #F0F8FF;
-            padding: 8px 12px;
-            border-radius: 30px;
-            margin-bottom: 16px;
-            border: 1px solid rgba(27, 90, 122, 0.2);
-        }
-
-        body.dark-mode .location-bar {
-            background: #252b38;
-            border: 1px solid #3a4050;
+            flex-wrap: wrap;
+            gap: clamp(6px, 2vw, 10px);
+            background: rgba(255, 255, 255, 0.1);
+            padding: clamp(8px, 2vw, 12px);
+            border-radius: 50px;
+            margin-bottom: clamp(12px, 3vw, 18px);
+            backdrop-filter: blur(5px);
         }
 
         .current-location {
-            flex: 1;
+            flex: 1 1 auto;
             display: flex;
             align-items: center;
             gap: 6px;
-            color: #0B3B5C;
+            color: white;
             font-weight: 600;
-            font-size: 14px;
+            font-size: clamp(13px, 3vw, 15px);
             overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-
-        body.dark-mode .current-location {
-            color: #e0e0e0;
+            min-width: 140px;
         }
 
         .location-icon {
-            font-size: 18px;
+            font-size: clamp(16px, 4vw, 20px);
             flex-shrink: 0;
         }
 
@@ -195,240 +230,204 @@
         }
 
         .location-btn {
-            background: linear-gradient(145deg, #1B5A7A, #0B3B5C);
-            border: none;
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
-            padding: 8px 14px;
-            border-radius: 30px;
-            font-size: 13px;
+            padding: clamp(8px, 2vw, 12px) clamp(12px, 3vw, 18px);
+            border-radius: 40px;
+            font-size: clamp(12px, 2.5vw, 14px);
             font-weight: 600;
             display: flex;
             align-items: center;
             gap: 4px;
             cursor: pointer;
             transition: all 0.2s;
-            border: 1px solid rgba(255,255,255,0.2);
+            white-space: nowrap;
             flex-shrink: 0;
         }
 
-        body.dark-mode .location-btn {
-            background: linear-gradient(145deg, #3a4050, #2a2f3f);
-        }
-
-        .location-btn:active {
-            transform: scale(0.96);
-        }
-
+        /* Search section - mobil uchun ustun */
         .search-section {
             display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
+            gap: clamp(6px, 2vw, 10px);
+            margin-bottom: clamp(16px, 4vw, 22px);
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 480px) {
+            .search-section {
+                flex-direction: column;
+            }
         }
 
         .region-select {
-            flex: 1;
-            padding: 12px 14px;
+            flex: 1 1 200px;
+            padding: clamp(12px, 3vw, 16px);
             border: none;
-            border-radius: 30px;
-            font-size: 14px;
+            border-radius: 40px;
+            font-size: clamp(14px, 3vw, 16px);
             font-weight: 500;
             outline: none;
             background: white;
-            color: #0B3B5C;
+            color: var(--text-dark);
             cursor: pointer;
-            border: 1px solid #D1E0EB;
+            min-width: 0; /* Flex overflow uchun */
         }
 
         body.dark-mode .region-select {
             background: #2a2f3f;
-            color: #e0e0e0;
-            border: 1px solid #3a4050;
+            color: white;
         }
 
         .search-btn {
-            padding: 12px 20px;
-            background: linear-gradient(145deg, #1B5A7A, #0B3B5C);
+            padding: clamp(12px, 3vw, 16px) clamp(20px, 4vw, 28px);
+            background: rgba(255, 255, 255, 0.25);
             color: white;
-            border: none;
-            border-radius: 30px;
-            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 40px;
+            font-size: clamp(14px, 3vw, 16px);
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s;
             white-space: nowrap;
-            border: 1px solid rgba(255,255,255,0.2);
+            flex: 0 1 auto;
         }
 
-        body.dark-mode .search-btn {
-            background: linear-gradient(145deg, #3a4050, #2a2f3f);
+        @media (max-width: 480px) {
+            .search-btn {
+                width: 100%;
+            }
         }
 
-        .search-btn:active {
-            transform: scale(0.96);
-        }
-
+        /* Loading spinner */
         .loading {
             text-align: center;
-            padding: 30px 20px;
+            padding: clamp(30px, 8vw, 50px) clamp(10px, 3vw, 20px);
+            width: 100%;
         }
 
         .spinner {
-            width: 45px;
-            height: 45px;
-            border: 4px solid #E3F2FD;
-            border-top: 4px solid #1B5A7A;
+            width: clamp(40px, 10vw, 60px);
+            height: clamp(40px, 10vw, 60px);
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top: 4px solid white;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            margin: 0 auto 15px;
+            margin: 0 auto clamp(10px, 2vw, 15px);
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        body.dark-mode .spinner {
-            border: 4px solid #2a2f3f;
-            border-top: 4px solid #5d8ad9;
-        }
-
-        .loading p {
-            color: #0B3B5C;
-            font-size: 15px;
-        }
-
-        body.dark-mode .loading p {
-            color: #e0e0e0;
-        }
-
+        /* Error message */
         .error-message {
-            background: #FFEBEE;
-            color: #C62828;
-            padding: 14px;
-            border-radius: 20px;
+            background: rgba(255, 235, 235, 0.95);
+            color: #c62828;
+            padding: clamp(12px, 3vw, 16px);
+            border-radius: var(--border-radius-md);
             text-align: center;
             font-weight: 600;
-            font-size: 14px;
-            border: 1px solid #EF9A9A;
-            margin-bottom: 16px;
+            font-size: clamp(13px, 3vw, 15px);
+            margin-bottom: clamp(12px, 3vw, 16px);
+            width: 100%;
         }
 
+        /* Current weather */
         .current-weather {
-            background: linear-gradient(145deg, #F0F9FF, #E1F0FA);
-            padding: 18px 16px;
-            border-radius: 24px;
-            margin-bottom: 18px;
-            border: 1px solid rgba(255,255,255,0.7);
+            background: rgba(255, 255, 255, 0.95);
+            padding: clamp(16px, 4vw, 24px);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: clamp(16px, 4vw, 22px);
         }
 
         body.dark-mode .current-weather {
-            background: linear-gradient(145deg, #252b38, #1e2330);
-            border: 1px solid #3a4050;
+            background: #252b38;
         }
 
         .city-name {
-            font-size: 26px;
-            color: #0B3B5C;
+            font-size: clamp(24px, 6vw, 32px);
+            color: var(--text-dark);
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: clamp(10px, 2.5vw, 15px);
             font-weight: 800;
-        }
-
-        body.dark-mode .city-name {
-            color: #fff;
+            word-break: break-word;
         }
 
         .weather-main {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 15px;
+            gap: clamp(12px, 3vw, 20px);
+            margin-bottom: clamp(12px, 3vw, 18px);
+            flex-wrap: wrap;
         }
 
         .weather-icon {
             background: white;
             border-radius: 50%;
-            padding: 8px;
-            width: 80px;
-            height: 80px;
+            padding: clamp(8px, 2vw, 12px);
+            width: clamp(70px, 18vw, 90px);
+            height: clamp(70px, 18vw, 90px);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        body.dark-mode .weather-icon {
-            background: #2a2f3f;
-        }
-
         .weather-icon img {
-            width: 70px;
-            height: 70px;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .temperature {
-            font-size: 48px;
+            font-size: clamp(42px, 10vw, 58px);
             font-weight: 800;
-            color: #0B3B5C;
+            color: var(--text-dark);
             line-height: 1;
         }
 
-        body.dark-mode .temperature {
-            color: #fff;
-        }
-
         .temperature small {
-            font-size: 24px;
+            font-size: clamp(20px, 5vw, 28px);
             font-weight: 500;
-            color: #2C7A9C;
-        }
-
-        body.dark-mode .temperature small {
-            color: #b0c4de;
+            color: var(--primary-light);
         }
 
         .feels-like {
-            font-size: 14px;
-            color: #1B5A7A;
+            font-size: clamp(13px, 3vw, 15px);
+            color: var(--primary);
             margin-top: 4px;
             font-weight: 600;
             text-align: center;
         }
 
-        body.dark-mode .feels-like {
-            color: #b0c4de;
-        }
-
         .weather-desc {
             text-align: center;
-            font-size: 18px;
-            color: #0B3B5C;
-            margin: 15px 0 18px;
+            font-size: clamp(16px, 4vw, 20px);
+            color: var(--text-dark);
+            margin: clamp(12px, 3vw, 18px) 0;
             font-weight: 700;
             text-transform: capitalize;
-            background: rgba(255,255,255,0.7);
-            padding: 10px;
-            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: clamp(8px, 2vw, 12px);
+            border-radius: 40px;
+            word-break: break-word;
         }
 
         body.dark-mode .weather-desc {
             background: #2a2f3f;
-            color: #fff;
+            color: white;
         }
 
+        /* Sun info - grid bilan moslashuvchi */
         .sun-info {
-            display: flex;
-            justify-content: space-around;
-            background: rgba(255,255,255,0.7);
-            padding: 14px 10px;
-            border-radius: 40px;
-            margin-bottom: 18px;
-            border: 1px solid white;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(8px, 2vw, 12px);
+            background: rgba(255, 255, 255, 0.7);
+            padding: clamp(12px, 3vw, 16px);
+            border-radius: 50px;
+            margin-bottom: clamp(16px, 4vw, 20px);
         }
 
         body.dark-mode .sun-info {
             background: #2a2f3f;
-            border: 1px solid #3a4050;
         }
 
         .sun-item {
@@ -440,12 +439,12 @@
         }
 
         .sun-icon {
-            font-size: 22px;
+            font-size: clamp(20px, 5vw, 26px);
         }
 
         .sun-label {
-            font-size: 12px;
-            color: #1B5A7A;
+            font-size: clamp(11px, 2.5vw, 13px);
+            color: var(--primary);
             font-weight: 600;
         }
 
@@ -454,115 +453,109 @@
         }
 
         .sun-time {
-            font-size: 15px;
+            font-size: clamp(13px, 3vw, 16px);
             font-weight: 800;
-            color: #0B3B5C;
+            color: var(--text-dark);
         }
 
         body.dark-mode .sun-time {
-            color: #fff;
+            color: white;
         }
 
+        /* Weather grid - avtomatik moslashuv */
         .weather-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 18px;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: clamp(8px, 2vw, 12px);
+            margin-bottom: clamp(16px, 4vw, 20px);
         }
 
         .grid-item {
             background: white;
-            padding: 12px 5px;
+            padding: clamp(10px, 2.5vw, 14px);
             border-radius: 20px;
             text-align: center;
-            border: 1px solid rgba(27, 90, 122, 0.1);
         }
 
         body.dark-mode .grid-item {
-            background: #252b38;
-            border: 1px solid #3a4050;
+            background: #2a2f3f;
         }
 
         .grid-icon {
-            font-size: 22px;
+            font-size: clamp(20px, 5vw, 26px);
             margin-bottom: 4px;
             display: block;
         }
 
         .grid-label {
-            font-size: 11px;
-            color: #2C7A9C;
+            font-size: clamp(10px, 2.2vw, 12px);
+            color: var(--primary);
             font-weight: 600;
             margin-bottom: 4px;
         }
 
-        body.dark-mode .grid-label {
-            color: #b0c4de;
-        }
-
         .grid-value {
-            font-size: 18px;
+            font-size: clamp(16px, 4vw, 20px);
             font-weight: 800;
-            color: #0B3B5C;
+            color: var(--text-dark);
         }
 
         body.dark-mode .grid-value {
-            color: #fff;
+            color: white;
         }
 
         .grid-unit {
-            font-size: 11px;
-            color: #1B5A7A;
+            font-size: clamp(9px, 2vw, 11px);
+            color: var(--primary-light);
             font-weight: 500;
         }
 
-        body.dark-mode .grid-unit {
-            color: #b0c4de;
-        }
-
+        /* Rain probability */
         .rain-probability {
-            background: linear-gradient(145deg, #E3F2FD, #BBDEFB);
-            padding: 14px;
-            border-radius: 22px;
-            margin-bottom: 22px;
+            background: linear-gradient(145deg, rgba(227, 242, 253, 0.9), rgba(187, 222, 251, 0.9));
+            padding: clamp(12px, 3vw, 16px);
+            border-radius: 25px;
+            margin-bottom: clamp(18px, 4vw, 22px);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border: 1px solid rgba(255,255,255,0.8);
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         body.dark-mode .rain-probability {
             background: linear-gradient(145deg, #252b38, #1e2330);
-            border: 1px solid #3a4050;
         }
 
         .rain-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: clamp(8px, 2vw, 12px);
+            flex-wrap: wrap;
         }
 
         .rain-icon {
-            font-size: 28px;
+            font-size: clamp(24px, 6vw, 32px);
         }
 
         .rain-text {
             font-weight: 700;
-            color: #0B3B5C;
-            font-size: 16px;
+            color: var(--text-dark);
+            font-size: clamp(14px, 3.5vw, 18px);
         }
 
         body.dark-mode .rain-text {
-            color: #fff;
+            color: white;
         }
 
         .rain-percentage {
-            font-size: 26px;
+            font-size: clamp(22px, 5.5vw, 28px);
             font-weight: 800;
-            color: #1B5A7A;
+            color: var(--primary);
             background: white;
-            padding: 6px 16px;
-            border-radius: 30px;
+            padding: clamp(6px, 1.5vw, 8px) clamp(12px, 3vw, 18px);
+            border-radius: 40px;
+            white-space: nowrap;
         }
 
         body.dark-mode .rain-percentage {
@@ -570,110 +563,59 @@
             color: #8ab3ff;
         }
 
+        /* Hourly forecast - horizontal scroll */
         .hourly-title {
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 12px;
             color: white;
-            font-size: 18px;
+            font-size: clamp(16px, 4vw, 20px);
             font-weight: 700;
+            margin-bottom: 12px;
         }
 
         .hourly-scroll {
-            display: flex;
-            overflow-x: auto;
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: minmax(75px, 90px);
             gap: 10px;
+            overflow-x: auto;
+            overflow-y: hidden;
             padding: 5px 0 15px;
             scrollbar-width: thin;
             -webkit-overflow-scrolling: touch;
             scroll-snap-type: x mandatory;
+            width: 100%;
         }
 
-        .hourly-scroll::-webkit-scrollbar {
-            height: 3px;
-        }
-
-        .hourly-scroll::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.2);
-            border-radius: 10px;
-        }
-
-        .hourly-scroll::-webkit-scrollbar-thumb {
-            background: #1B5A7A;
-            border-radius: 10px;
-        }
-
-        body.dark-mode .hourly-scroll::-webkit-scrollbar-thumb {
-            background: #5d8ad9;
+        @media (min-width: 768px) {
+            .hourly-scroll {
+                grid-auto-columns: minmax(90px, 100px);
+            }
         }
 
         .hourly-item {
-            background: rgba(255,255,255,0.95);
-            min-width: 80px;
+            background: rgba(255, 255, 255, 0.95);
             padding: 12px 6px;
             border-radius: 22px;
             text-align: center;
-            border: 1px solid white;
             scroll-snap-align: start;
+            width: 100%;
         }
 
         body.dark-mode .hourly-item {
             background: #252b38;
-            border: 1px solid #3a4050;
         }
 
-        .hourly-time {
-            font-weight: 700;
-            color: #0B3B5C;
-            font-size: 14px;
-            margin-bottom: 6px;
-        }
-
-        body.dark-mode .hourly-time {
-            color: #fff;
-        }
-
-        .hourly-icon {
-            width: 35px;
-            height: 35px;
-            margin: 0 auto 6px;
-        }
-
-        .hourly-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .hourly-temp {
-            font-weight: 800;
-            color: #1B5A7A;
-            font-size: 16px;
-            margin-bottom: 4px;
-        }
-
-        body.dark-mode .hourly-temp {
-            color: #8ab3ff;
-        }
-
-        .hourly-rain {
-            font-size: 12px;
-            color: #2C7A9C;
-            font-weight: 600;
-        }
-
-        body.dark-mode .hourly-rain {
-            color: #b0c4de;
-        }
-
+        /* Weekly forecast */
         .weekly-forecast {
             margin-top: 18px;
+            width: 100%;
         }
 
         .weekly-title {
             color: white;
-            font-size: 18px;
+            font-size: clamp(16px, 4vw, 20px);
             font-weight: 700;
             margin-bottom: 12px;
             display: flex;
@@ -682,54 +624,57 @@
         }
 
         .forecast-item {
-            background: rgba(255,255,255,0.95);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            padding: 12px 14px;
+            padding: clamp(10px, 2.5vw, 14px);
             margin-bottom: 8px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border: 1px solid white;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         body.dark-mode .forecast-item {
             background: #252b38;
-            border: 1px solid #3a4050;
         }
 
         .forecast-left {
             display: flex;
             align-items: center;
-            gap: 12px;
-            flex: 1;
+            gap: clamp(8px, 2vw, 12px);
+            flex: 1 1 auto;
+            min-width: 180px;
         }
 
         .forecast-day {
             font-weight: 700;
-            color: #0B3B5C;
-            min-width: 80px;
-            font-size: 14px;
+            color: var(--text-dark);
+            min-width: 70px;
+            font-size: clamp(13px, 3vw, 15px);
         }
 
         body.dark-mode .forecast-day {
-            color: #fff;
+            color: white;
         }
 
         .forecast-icon {
-            width: 35px;
-            height: 35px;
+            width: clamp(30px, 7vw, 35px);
+            height: clamp(30px, 7vw, 35px);
+            flex-shrink: 0;
         }
 
         .forecast-icon img {
             width: 100%;
             height: 100%;
+            object-fit: contain;
         }
 
         .forecast-temp {
             font-weight: 800;
-            color: #1B5A7A;
-            font-size: 18px;
-            min-width: 55px;
+            color: var(--primary);
+            font-size: clamp(16px, 4vw, 19px);
+            min-width: 50px;
         }
 
         body.dark-mode .forecast-temp {
@@ -740,156 +685,201 @@
             display: flex;
             align-items: center;
             gap: 4px;
-            color: #2C7A9C;
+            color: var(--primary-light);
             font-weight: 600;
-            font-size: 13px;
-            min-width: 50px;
+            font-size: clamp(12px, 3vw, 14px);
+            min-width: 45px;
+            white-space: nowrap;
         }
 
         body.dark-mode .forecast-rain {
             color: #b0c4de;
         }
 
+        @media (max-width: 380px) {
+            .forecast-left {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            
+            .forecast-day {
+                min-width: 100%;
+            }
+        }
+
         .hidden {
             display: none !important;
+        }
+
+        /* Touch optimization */
+        button, select {
+            touch-action: manipulation;
+        }
+
+        /* Landscape orientation */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .container {
+                padding: 8px;
+            }
+            
+            .weather-card {
+                max-width: 100%;
+            }
+            
+            .weather-main {
+                flex-direction: row;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Telegram Web App Header -->
-    <div class="telegram-header">
-        <button class="telegram-back-btn" onclick="window.Telegram?.WebApp?.BackButton?.show()" style="visibility: hidden;">←</button>
-        <span class="telegram-title">🌤 Ob-havo</span>
-        <div style="display: flex; gap: 8px;">
-            <button class="theme-toggle" id="themeToggle">
-                <span class="sun-icon">☀️</span>
-                <span class="moon-icon" style="display: none;">🌙</span>
-            </button>
-            <button class="telegram-close-btn" onclick="window.Telegram?.WebApp?.close()">✕</button>
-        </div>
-    </div>
-
     <div class="container">
-        <header class="header">
-            <h1>O'ZBEKISTON OB-HAVO</h1>
-            <p class="date" id="currentDate"></p>
-        </header>
-
-        <div class="location-bar">
-            <div class="current-location">
-                <span class="location-icon">📍</span>
-                <span class="location-name" id="locationName">Joylashuv aniqlanmoqda...</span>
+        <!-- Telegram Header -->
+        <div class="telegram-header">
+            <button class="header-btn" onclick="window.Telegram?.WebApp?.close()" style="visibility: hidden;">←</button>
+            <span class="telegram-title">🌤 Ob-havo</span>
+            <div style="display: flex; gap: 8px;">
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="sun-icon">☀️</span>
+                    <span class="moon-icon" style="display: none;">🌙</span>
+                </button>
+                <button class="header-btn" onclick="window.Telegram?.WebApp?.close()">✕</button>
             </div>
-            <button id="getLocationBtn" class="location-btn">
-                <span>📍</span> Joylashuv
-            </button>
         </div>
 
-        <div class="search-section">
-            <select id="regionSelect" class="region-select">
-                <option value="">Viloyatni tanlang</option>
-                <option value="Toshkent">Toshkent</option>
-                <option value="Samarqand">Samarqand</option>
-                <option value="Buxoro">Buxoro</option>
-                <option value="Farg'ona">Farg'ona</option>
-                <option value="Andijon">Andijon</option>
-                <option value="Namangan">Namangan</option>
-                <option value="Qarshi">Qarshi</option>
-                <option value="Termiz">Termiz</option>
-                <option value="Guliston">Guliston</option>
-                <option value="Jizzax">Jizzax</option>
-                <option value="Navoiy">Navoiy</option>
-                <option value="Urganch">Urganch</option>
-                <option value="Nukus">Nukus</option>
-            </select>
-            <button id="searchBtn" class="search-btn">Qidirish</button>
-        </div>
+        <!-- Asosiy karta -->
+        <div class="weather-card">
+            <header class="header">
+                <h1>O'ZBEKISTON OB-HAVO</h1>
+                <p class="date" id="currentDate"></p>
+            </header>
 
-        <div id="loading" class="loading hidden">
-            <div class="spinner"></div>
-            <p>Ma'lumotlar yuklanmoqda...</p>
-        </div>
+            <!-- Location bar -->
+            <div class="location-bar">
+                <div class="current-location">
+                    <span class="location-icon">📍</span>
+                    <span class="location-name" id="locationName">Joylashuv aniqlanmoqda...</span>
+                </div>
+                <button id="getLocationBtn" class="location-btn">
+                    <span>📍</span> Joylashuv
+                </button>
+            </div>
 
-        <div id="errorMessage" class="error-message hidden"></div>
+            <!-- Search section -->
+            <div class="search-section">
+                <select id="regionSelect" class="region-select">
+                    <option value="">Viloyatni tanlang</option>
+                    <option value="Toshkent">Toshkent</option>
+                    <option value="Samarqand">Samarqand</option>
+                    <option value="Buxoro">Buxoro</option>
+                    <option value="Farg'ona">Farg'ona</option>
+                    <option value="Andijon">Andijon</option>
+                    <option value="Namangan">Namangan</option>
+                    <option value="Qarshi">Qarshi</option>
+                    <option value="Termiz">Termiz</option>
+                    <option value="Guliston">Guliston</option>
+                    <option value="Jizzax">Jizzax</option>
+                    <option value="Navoiy">Navoiy</option>
+                    <option value="Urganch">Urganch</option>
+                    <option value="Nukus">Nukus</option>
+                </select>
+                <button id="searchBtn" class="search-btn">Qidirish</button>
+            </div>
 
-        <div id="weatherContainer" class="weather-container hidden">
-            <div class="current-weather">
-                <h2 class="city-name" id="cityName"></h2>
-                
-                <div class="weather-main">
-                    <div class="weather-icon">
-                        <img id="weatherIcon" src="" alt="weather">
-                    </div>
-                    <div>
-                        <div class="temperature">
-                            <span id="currentTemp"></span><small>°C</small>
+            <!-- Loading -->
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p style="color: white;">Ma'lumotlar yuklanmoqda...</p>
+            </div>
+
+            <!-- Error message -->
+            <div id="errorMessage" class="error-message hidden"></div>
+
+            <!-- Weather data -->
+            <div id="weatherContainer" class="weather-container hidden">
+                <div class="current-weather">
+                    <h2 class="city-name" id="cityName"></h2>
+                    
+                    <div class="weather-main">
+                        <div class="weather-icon">
+                            <img id="weatherIcon" src="" alt="weather">
                         </div>
-                        <div class="feels-like" id="feelsLike"></div>
+                        <div>
+                            <div class="temperature">
+                                <span id="currentTemp"></span><small>°C</small>
+                            </div>
+                            <div class="feels-like" id="feelsLike"></div>
+                        </div>
+                    </div>
+
+                    <div class="weather-desc" id="weatherDescription"></div>
+
+                    <!-- Sun info -->
+                    <div class="sun-info">
+                        <div class="sun-item">
+                            <span class="sun-icon">🌅</span>
+                            <span class="sun-label">Quyosh chiqishi</span>
+                            <span class="sun-time" id="sunrise"></span>
+                        </div>
+                        <div class="sun-item">
+                            <span class="sun-icon">🌇</span>
+                            <span class="sun-label">Quyosh botishi</span>
+                            <span class="sun-time" id="sunset"></span>
+                        </div>
+                        <div class="sun-item">
+                            <span class="sun-icon">⏳</span>
+                            <span class="sun-label">Kun uzunligi</span>
+                            <span class="sun-time" id="dayLength"></span>
+                        </div>
+                    </div>
+
+                    <!-- Weather grid -->
+                    <div class="weather-grid">
+                        <div class="grid-item">
+                            <span class="grid-icon">💧</span>
+                            <span class="grid-label">Namlik</span>
+                            <span class="grid-value" id="humidity"></span>
+                            <span class="grid-unit">%</span>
+                        </div>
+                        <div class="grid-item">
+                            <span class="grid-icon">💨</span>
+                            <span class="grid-label">Shamol</span>
+                            <span class="grid-value" id="windSpeed"></span>
+                            <span class="grid-unit">m/s</span>
+                        </div>
+                        <div class="grid-item">
+                            <span class="grid-icon">📊</span>
+                            <span class="grid-label">Bosim</span>
+                            <span class="grid-value" id="pressure"></span>
+                            <span class="grid-unit">hPa</span>
+                        </div>
+                    </div>
+
+                    <!-- Rain probability -->
+                    <div class="rain-probability">
+                        <div class="rain-left">
+                            <span class="rain-icon">☔️</span>
+                            <span class="rain-text">Yomg'ir ehtimoli</span>
+                        </div>
+                        <span class="rain-percentage" id="rainProbability">0%</span>
                     </div>
                 </div>
 
-                <div class="weather-desc" id="weatherDescription"></div>
-
-                <div class="sun-info">
-                    <div class="sun-item">
-                        <span class="sun-icon">🌅</span>
-                        <span class="sun-label">Quyosh chiqishi</span>
-                        <span class="sun-time" id="sunrise"></span>
-                    </div>
-                    <div class="sun-item">
-                        <span class="sun-icon">🌇</span>
-                        <span class="sun-label">Quyosh botishi</span>
-                        <span class="sun-time" id="sunset"></span>
-                    </div>
-                    <div class="sun-item">
-                        <span class="sun-icon">⏳</span>
-                        <span class="sun-label">Kun uzunligi</span>
-                        <span class="sun-time" id="dayLength"></span>
-                    </div>
+                <!-- Hourly forecast -->
+                <div class="hourly-title">
+                    <span>⏰</span>
+                    <span>Soatlik ob-havo</span>
                 </div>
+                <div class="hourly-scroll" id="hourlyForecast"></div>
 
-                <div class="weather-grid">
-                    <div class="grid-item">
-                        <span class="grid-icon">💧</span>
-                        <span class="grid-label">Namlik</span>
-                        <span class="grid-value" id="humidity"></span>
-                        <span class="grid-unit">%</span>
+                <!-- Weekly forecast -->
+                <div class="weekly-forecast">
+                    <div class="weekly-title">
+                        <span>📅</span>
+                        <span>7 kunlik prognoz</span>
                     </div>
-                    <div class="grid-item">
-                        <span class="grid-icon">💨</span>
-                        <span class="grid-label">Shamol</span>
-                        <span class="grid-value" id="windSpeed"></span>
-                        <span class="grid-unit">m/s</span>
-                    </div>
-                    <div class="grid-item">
-                        <span class="grid-icon">📊</span>
-                        <span class="grid-label">Bosim</span>
-                        <span class="grid-value" id="pressure"></span>
-                        <span class="grid-unit">hPa</span>
-                    </div>
+                    <div id="weeklyForecast"></div>
                 </div>
-
-                <div class="rain-probability">
-                    <div class="rain-left">
-                        <span class="rain-icon">☔️</span>
-                        <span class="rain-text">Yomg'ir ehtimoli</span>
-                    </div>
-                    <span class="rain-percentage" id="rainProbability">0%</span>
-                </div>
-            </div>
-
-            <div class="hourly-title">
-                <span>⏰</span>
-                <span>Soatlik ob-havo</span>
-            </div>
-            <div class="hourly-scroll" id="hourlyForecast"></div>
-
-            <div class="weekly-forecast">
-                <div class="weekly-title">
-                    <span>📅</span>
-                    <span>7 kunlik prognoz</span>
-                </div>
-                <div id="weeklyForecast"></div>
             </div>
         </div>
     </div>
@@ -898,57 +888,14 @@
         // Telegram Web App initialization
         const tg = window.Telegram?.WebApp;
         if (tg) {
-            tg.expand(); // Expand to full screen
-            tg.ready(); // Notify Telegram that app is ready
-            tg.setHeaderColor('#0B3B5C'); // Set header color
-            tg.setBackgroundColor('#0B3B5C'); // Set background color
-            
-            // Disable vertical swipes
+            tg.expand();
+            tg.ready();
+            tg.setHeaderColor('#0B3B5C');
+            tg.setBackgroundColor('#0B3B5C');
             tg.disableVerticalSwipes?.();
         }
 
-        // Tungi rejim funksiyasi
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        const sunIcon = document.querySelector('.sun-icon');
-        const moonIcon = document.querySelector('.moon-icon');
-
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const hour = new Date().getHours();
-            
-            if (savedTheme === 'dark' || (savedTheme === null && (hour >= 19 || hour < 6))) {
-                body.classList.add('dark-mode');
-                sunIcon.style.display = 'none';
-                moonIcon.style.display = 'inline';
-                if (tg) tg.setHeaderColor('#1a1f2e');
-            } else {
-                body.classList.remove('dark-mode');
-                sunIcon.style.display = 'inline';
-                moonIcon.style.display = 'none';
-                if (tg) tg.setHeaderColor('#0B3B5C');
-            }
-        }
-
-        function toggleTheme() {
-            if (body.classList.contains('dark-mode')) {
-                body.classList.remove('dark-mode');
-                localStorage.setItem('theme', 'light');
-                sunIcon.style.display = 'inline';
-                moonIcon.style.display = 'none';
-                if (tg) tg.setHeaderColor('#0B3B5C');
-            } else {
-                body.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark');
-                sunIcon.style.display = 'none';
-                moonIcon.style.display = 'inline';
-                if (tg) tg.setHeaderColor('#1a1f2e');
-            }
-        }
-
-        themeToggle.addEventListener('click', toggleTheme);
-
-        // DOM elementlar
+        // DOM elements
         const elements = {
             regionSelect: document.getElementById('regionSelect'),
             searchBtn: document.getElementById('searchBtn'),
@@ -974,13 +921,13 @@
             weeklyForecast: document.getElementById('weeklyForecast')
         };
 
-        // API kalit
+        // API key
         const API_KEY = 'bd5e378503939ddaee76f12ad7a97608';
 
-        // Hafta kunlari
+        // Week days
         const weekDays = ['Yakshanba', 'Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba'];
 
-        // Viloyatlar koordinatalari
+        // Region coordinates
         const regionCoordinates = {
             'Toshkent': { lat: 41.2995, lon: 69.2401 },
             'Samarqand': { lat: 39.6270, lon: 66.9750 },
@@ -997,21 +944,58 @@
             'Nukus': { lat: 42.4667, lon: 59.6000 }
         };
 
-        // Sanani yangilash
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const sunIcon = document.querySelector('.sun-icon');
+        const moonIcon = document.querySelector('.moon-icon');
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const hour = new Date().getHours();
+            
+            if (savedTheme === 'dark' || (savedTheme === null && (hour >= 19 || hour < 6))) {
+                body.classList.add('dark-mode');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'inline';
+                if (tg) tg.setHeaderColor('#1a1f2e');
+            }
+        }
+
+        function toggleTheme() {
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+                sunIcon.style.display = 'inline';
+                moonIcon.style.display = 'none';
+                if (tg) tg.setHeaderColor('#0B3B5C');
+            } else {
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'inline';
+                if (tg) tg.setHeaderColor('#1a1f2e');
+            }
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Update date
         function updateDate() {
             const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            elements.currentDate.textContent = now.toLocaleDateString('uz-UZ', options);
+            elements.currentDate.textContent = now.toLocaleDateString('uz-UZ', { 
+                year: 'numeric', month: 'long', day: 'numeric' 
+            });
         }
         updateDate();
 
-        // Vaqtni formatlash
+        // Format time
         function formatTime(timestamp) {
             const date = new Date(timestamp * 1000);
             return date.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' });
         }
 
-        // Kun uzunligini hisoblash
+        // Calculate day length
         function calculateDayLength(sunrise, sunset) {
             const diff = sunset - sunrise;
             const hours = Math.floor(diff / 3600);
@@ -1019,7 +1003,7 @@
             return `${hours}:${minutes.toString().padStart(2, '0')}`;
         }
 
-        // Ob-havo ma'lumotlarini olish
+        // Get weather data
         async function getWeatherData(lat, lon, location) {
             try {
                 setLoading(true);
@@ -1029,7 +1013,7 @@
                     fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=uz`)
                 ]);
 
-                if (!currentRes.ok || !forecastRes.ok) throw new Error('API xatolik');
+                if (!currentRes.ok || !forecastRes.ok) throw new Error();
 
                 const current = await currentRes.json();
                 const forecast = await forecastRes.json();
@@ -1037,13 +1021,12 @@
                 displayWeatherData(current, forecast, location);
             } catch (error) {
                 showError('Ma\'lumotlarni yuklashda xatolik');
-                console.error(error);
             } finally {
                 setLoading(false);
             }
         }
 
-        // Ma'lumotlarni ko'rsatish
+        // Display weather data
         function displayWeatherData(current, forecast, location) {
             elements.cityName.textContent = location;
             elements.weatherIcon.src = `https://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`;
@@ -1051,81 +1034,69 @@
             elements.feelsLike.textContent = `His qilinadi: ${Math.round(current.main.feels_like)}°C`;
             elements.weatherDescription.textContent = current.weather[0].description;
             
-            const sunrise = current.sys.sunrise;
-            const sunset = current.sys.sunset;
-            elements.sunrise.textContent = formatTime(sunrise);
-            elements.sunset.textContent = formatTime(sunset);
-            elements.dayLength.textContent = calculateDayLength(sunrise, sunset);
+            elements.sunrise.textContent = formatTime(current.sys.sunrise);
+            elements.sunset.textContent = formatTime(current.sys.sunset);
+            elements.dayLength.textContent = calculateDayLength(current.sys.sunrise, current.sys.sunset);
             
             elements.humidity.textContent = current.main.humidity;
             elements.windSpeed.textContent = current.wind.speed.toFixed(1);
             elements.pressure.textContent = current.main.pressure;
 
             const rain = current.rain ? current.rain['1h'] || current.rain['3h'] || 0 : 0;
-            const rainProb = rain > 0 ? Math.min(Math.round(rain * 20), 100) : 0;
-            elements.rainProbability.textContent = `${rainProb}%`;
+            elements.rainProbability.textContent = `${rain > 0 ? Math.min(Math.round(rain * 20), 100) : 0}%`;
 
-            // Soatlik prognoz
+            // Hourly forecast
             elements.hourlyForecast.innerHTML = '';
             forecast.list.slice(0, 8).forEach(item => {
-                const time = new Date(item.dt * 1000);
-                const hour = time.getHours().toString().padStart(2, '0') + ':00';
-                const temp = Math.round(item.main.temp);
-                const icon = item.weather[0].icon;
-                const rainChance = item.pop ? Math.round(item.pop * 100) : 0;
-
-                const hourlyItem = document.createElement('div');
-                hourlyItem.className = 'hourly-item';
-                hourlyItem.innerHTML = `
-                    <div class="hourly-time">${hour}</div>
-                    <div class="hourly-icon">
-                        <img src="https://openweathermap.org/img/wn/${icon}.png" alt="icon">
+                const hour = new Date(item.dt * 1000).getHours().toString().padStart(2, '0') + ':00';
+                const item_rain = item.pop ? Math.round(item.pop * 100) : 0;
+                
+                elements.hourlyForecast.innerHTML += `
+                    <div class="hourly-item">
+                        <div class="hourly-time">${hour}</div>
+                        <div class="hourly-icon">
+                            <img src="https://openweathermap.org/img/wn/${item.weather[0].icon}.png">
+                        </div>
+                        <div class="hourly-temp">${Math.round(item.main.temp)}°C</div>
+                        <div class="hourly-rain">☔️ ${item_rain}%</div>
                     </div>
-                    <div class="hourly-temp">${temp}°C</div>
-                    <div class="hourly-rain">☔️ ${rainChance}%</div>
                 `;
-                elements.hourlyForecast.appendChild(hourlyItem);
             });
 
-            // Haftalik prognoz
+            // Weekly forecast
             elements.weeklyForecast.innerHTML = '';
             const daily = {};
             forecast.list.forEach(item => {
                 const date = new Date(item.dt * 1000).toDateString();
-                if (!daily[date] || new Date(item.dt * 1000).getHours() === 12) {
-                    daily[date] = item;
-                }
+                if (!daily[date]) daily[date] = item;
             });
 
             Object.values(daily).slice(0, 7).forEach((day, index) => {
                 const date = new Date(day.dt * 1000);
                 const dayName = index === 0 ? 'Bugun' : index === 1 ? 'Ertaga' : weekDays[date.getDay()];
-                const temp = Math.round(day.main.temp);
-                const icon = day.weather[0].icon;
                 const rainChance = day.pop ? Math.round(day.pop * 100) : 0;
-
-                const forecastItem = document.createElement('div');
-                forecastItem.className = 'forecast-item';
-                forecastItem.innerHTML = `
-                    <div class="forecast-left">
-                        <span class="forecast-day">${dayName}</span>
-                        <div class="forecast-icon">
-                            <img src="https://openweathermap.org/img/wn/${icon}.png" alt="icon">
+                
+                elements.weeklyForecast.innerHTML += `
+                    <div class="forecast-item">
+                        <div class="forecast-left">
+                            <span class="forecast-day">${dayName}</span>
+                            <div class="forecast-icon">
+                                <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png">
+                            </div>
+                            <span class="forecast-temp">${Math.round(day.main.temp)}°C</span>
                         </div>
-                        <span class="forecast-temp">${temp}°C</span>
-                    </div>
-                    <div class="forecast-rain">
-                        <span>☔️</span>
-                        <span>${rainChance}%</span>
+                        <div class="forecast-rain">
+                            <span>☔️</span>
+                            <span>${rainChance}%</span>
+                        </div>
                     </div>
                 `;
-                elements.weeklyForecast.appendChild(forecastItem);
             });
 
             elements.weatherContainer.classList.remove('hidden');
         }
 
-        // Joylashuvni olish
+        // Get current location
         function getCurrentLocation() {
             if (!navigator.geolocation) {
                 showError('Brauzer joylashuvni qo\'llab-quvvatlamaydi');
@@ -1144,8 +1115,7 @@
                             `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${API_KEY}`
                         );
                         const data = await res.json();
-                        
-                        let city = data[0]?.name || 'Sizning joylashuvingiz';
+                        const city = data[0]?.name || 'Sizning joylashuvingiz';
                         elements.locationName.textContent = city;
                         await getWeatherData(latitude, longitude, city);
                     } catch {
@@ -1164,7 +1134,7 @@
             );
         }
 
-        // Viloyat bo'yicha qidirish
+        // Search weather by region
         async function searchWeather() {
             const region = elements.regionSelect.value;
             if (!region) {
@@ -1179,6 +1149,7 @@
             }
         }
 
+        // Loading state
         function setLoading(isLoading) {
             if (isLoading) {
                 elements.loading.classList.remove('hidden');
@@ -1189,6 +1160,7 @@
             }
         }
 
+        // Show error
         function showError(message) {
             elements.errorMessage.textContent = message;
             elements.errorMessage.classList.remove('hidden');
@@ -1200,34 +1172,22 @@
         elements.getLocationBtn.addEventListener('click', getCurrentLocation);
         elements.regionSelect.addEventListener('change', searchWeather);
 
-        // Enter tugmasi
-        elements.regionSelect.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') searchWeather();
-        });
-
-        // Tungi rejimni ishga tushirish
+        // Initialize theme
         initTheme();
 
-        // Sahifa yuklanganda
+        // Load current location on start
         window.addEventListener('load', () => {
             setTimeout(getCurrentLocation, 500);
             
             // Fallback
             setTimeout(() => {
                 if (elements.weatherContainer.classList.contains('hidden') && 
-                    !elements.loading.classList.contains('hidden') === false) {
+                    !elements.loading.classList.contains('hidden')) {
                     elements.regionSelect.value = 'Toshkent';
                     searchWeather();
                 }
             }, 8000);
         });
-
-        // Telegram back button handling
-        if (tg && tg.BackButton) {
-            tg.BackButton.onClick(() => {
-                tg.close();
-            });
-        }
     </script>
 </body>
 </html>
