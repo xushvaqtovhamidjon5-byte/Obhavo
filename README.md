@@ -1,3 +1,4 @@
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -682,7 +683,7 @@
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(239, 68, 68, 0.3);
             color: white;
-            padding: clamp(12px, 3vw, 14px) clamp(14px, 4vw, 18px);
+            padding: clamp(8px,2vw, 12px) clamp(6px, 3vw, 11px);
             border-radius: 20px;
             text-align: center;
             font-weight: 600;
