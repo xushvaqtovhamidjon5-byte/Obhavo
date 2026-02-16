@@ -1,18 +1,14 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#1a4d8c">
-    <title>Ob-havo | O'zbekiston</title>
+    <title>Weather App - O'zbekiston viloyatlari</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
@@ -46,6 +42,7 @@
             transition: background 0.3s ease;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
         }
 
         /* Telegram Web App height fix */
@@ -63,9 +60,9 @@
 
         .app-container {
             width: 100%;
-            max-width: 480px;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 12px 16px;
+            padding: clamp(8px, 3vw, 16px);
             height: 100%;
             overflow-y: auto;
             overflow-x: hidden;
@@ -80,13 +77,13 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 16px;
+            margin-bottom: clamp(12px, 3vh, 20px);
             padding: 4px 0;
             flex-shrink: 0;
         }
 
         .header-title {
-            font-size: 20px;
+            font-size: clamp(18px, 5vw, 22px);
             font-weight: 700;
             color: white;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -96,8 +93,8 @@
 
         /* Icon Buttons */
         .icon-btn {
-            width: 40px;
-            height: 40px;
+            width: clamp(36px, 10vw, 44px);
+            height: clamp(36px, 10vw, 44px);
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid var(--border-light);
@@ -106,7 +103,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: clamp(18px, 5vw, 22px);
             color: white;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -125,35 +122,36 @@
             background: var(--card-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-radius: 28px;
-            padding: 12px 18px;
-            margin-bottom: 16px;
+            border-radius: clamp(20px, 5vw, 28px);
+            padding: clamp(10px, 2.5vw, 14px) clamp(12px, 3vw, 18px);
+            margin-bottom: clamp(12px, 3vh, 20px);
             display: flex;
             align-items: center;
             justify-content: space-between;
             border: 1px solid var(--border-light);
             box-shadow: var(--shadow);
             flex-shrink: 0;
+            width: 100%;
         }
 
         .location-info {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: clamp(8px, 2vw, 12px);
             flex: 1;
             min-width: 0;
         }
 
         .location-badge {
-            width: 40px;
-            height: 40px;
-            border-radius: 24px;
+            width: clamp(32px, 8vw, 40px);
+            height: clamp(32px, 8vw, 40px);
+            border-radius: clamp(16px, 4vw, 24px);
             background: linear-gradient(145deg, var(--accent), var(--accent-dark));
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 20px;
+            font-size: clamp(16px, 4vw, 20px);
             flex-shrink: 0;
         }
 
@@ -165,7 +163,7 @@
         }
 
         .location-label {
-            font-size: 11px;
+            font-size: clamp(9px, 2.5vw, 11px);
             color: var(--text-secondary);
             font-weight: 600;
             text-transform: uppercase;
@@ -173,7 +171,7 @@
         }
 
         .location-value {
-            font-size: 15px;
+            font-size: clamp(13px, 3.5vw, 15px);
             font-weight: 700;
             color: var(--text-primary);
             overflow: hidden;
@@ -184,11 +182,11 @@
         .refresh-btn {
             background: rgba(255, 255, 255, 0.2);
             border: 1px solid var(--border-light);
-            padding: 8px 14px;
+            padding: clamp(6px, 1.5vw, 8px) clamp(10px, 2.5vw, 14px);
             border-radius: 24px;
             color: white;
             font-weight: 600;
-            font-size: 13px;
+            font-size: clamp(11px, 3vw, 13px);
             display: flex;
             align-items: center;
             gap: 4px;
@@ -208,9 +206,10 @@
         /* Search Section */
         .search-section {
             display: flex;
-            gap: 10px;
-            margin-bottom: 16px;
+            gap: clamp(6px, 2vw, 10px);
+            margin-bottom: clamp(12px, 3vh, 20px);
             flex-shrink: 0;
+            width: 100%;
         }
 
         .select-wrapper {
@@ -221,14 +220,14 @@
 
         .select-wrapper select {
             width: 100%;
-            padding: 14px 18px;
+            padding: clamp(10px, 3vw, 14px) clamp(12px, 3vw, 18px);
             border-radius: 30px;
             border: none;
             background: var(--card-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             color: var(--text-primary);
-            font-size: 14px;
+            font-size: clamp(12px, 3.5vw, 14px);
             font-weight: 500;
             appearance: none;
             cursor: pointer;
@@ -239,23 +238,23 @@
 
         .select-wrapper::after {
             content: '▼';
-            font-size: 11px;
+            font-size: clamp(9px, 2.5vw, 11px);
             color: var(--accent);
             position: absolute;
-            right: 16px;
+            right: clamp(12px, 3vw, 16px);
             top: 50%;
             transform: translateY(-50%);
             pointer-events: none;
         }
 
         .search-btn {
-            padding: 0 20px;
+            padding: 0 clamp(12px, 4vw, 20px);
             background: linear-gradient(145deg, var(--accent), var(--accent-dark));
             border: none;
             border-radius: 30px;
             color: white;
             font-weight: 700;
-            font-size: 14px;
+            font-size: clamp(12px, 3.5vw, 14px);
             cursor: pointer;
             transition: all 0.2s;
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
@@ -274,29 +273,31 @@
             background: var(--card-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-radius: 28px;
-            padding: 20px 16px;
+            border-radius: clamp(20px, 5vw, 28px);
+            padding: clamp(16px, 4vw, 20px) clamp(12px, 3vw, 16px);
             border: 1px solid var(--border-light);
             box-shadow: var(--shadow);
-            margin-bottom: 16px;
+            margin-bottom: clamp(12px, 3vh, 20px);
             flex-shrink: 0;
+            width: 100%;
         }
 
         .city-header {
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: clamp(12px, 3vh, 16px);
         }
 
         .city-name {
-            font-size: 24px;
+            font-size: clamp(20px, 6vw, 26px);
             font-weight: 800;
             color: var(--text-primary);
             margin-bottom: 2px;
             line-height: 1.2;
+            word-break: break-word;
         }
 
         .current-date {
-            font-size: 13px;
+            font-size: clamp(11px, 3vw, 13px);
             color: var(--text-secondary);
             font-weight: 500;
         }
@@ -306,40 +307,42 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 16px;
+            margin-bottom: clamp(12px, 3vh, 16px);
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50px;
-            padding: 12px 20px;
+            padding: clamp(8px, 2vw, 12px) clamp(12px, 3vw, 20px);
             border: 1px solid var(--border-light);
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .weather-icon-large {
-            width: 70px;
-            height: 70px;
+            width: clamp(50px, 15vw, 70px);
+            height: clamp(50px, 15vw, 70px);
             filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
         }
 
         .temp-large {
-            font-size: 48px;
+            font-size: clamp(36px, 10vw, 52px);
             font-weight: 800;
             color: var(--text-primary);
             line-height: 1;
         }
 
         .temp-large small {
-            font-size: 24px;
+            font-size: clamp(18px, 5vw, 26px);
             font-weight: 500;
             color: var(--text-secondary);
         }
 
         .weather-desc {
             text-align: center;
-            font-size: 18px;
+            font-size: clamp(16px, 4.5vw, 20px);
             font-weight: 600;
             color: var(--text-primary);
             text-transform: capitalize;
-            margin-bottom: 16px;
-            padding: 6px 0;
+            margin-bottom: clamp(12px, 3vh, 16px);
+            padding: clamp(4px, 1vh, 6px) 0;
             border-bottom: 1px solid var(--border-light);
         }
 
@@ -347,11 +350,11 @@
         .sun-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
+            gap: clamp(4px, 2vw, 8px);
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 12px;
-            margin-bottom: 16px;
+            border-radius: clamp(16px, 4vw, 20px);
+            padding: clamp(8px, 2vw, 12px);
+            margin-bottom: clamp(12px, 3vh, 16px);
             border: 1px solid var(--border-light);
         }
 
@@ -363,18 +366,18 @@
         }
 
         .sun-emoji {
-            font-size: 22px;
+            font-size: clamp(18px, 5vw, 24px);
         }
 
         .sun-label {
-            font-size: 10px;
+            font-size: clamp(8px, 2.5vw, 10px);
             color: var(--text-secondary);
             font-weight: 600;
             text-transform: uppercase;
         }
 
         .sun-value {
-            font-size: 14px;
+            font-size: clamp(12px, 3.5vw, 14px);
             font-weight: 700;
             color: var(--text-primary);
         }
@@ -383,14 +386,14 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 16px;
+            gap: clamp(4px, 2vw, 8px);
+            margin-bottom: clamp(12px, 3vh, 16px);
         }
 
         .stat-item {
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 18px;
-            padding: 12px 6px;
+            border-radius: clamp(14px, 4vw, 18px);
+            padding: clamp(8px, 2vw, 12px) clamp(3px, 1vw, 6px);
             text-align: center;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -398,27 +401,31 @@
         }
 
         .stat-emoji {
-            font-size: 22px;
-            margin-bottom: 4px;
+            font-size: clamp(18px, 5vw, 24px);
+            margin-bottom: 2px;
             display: block;
         }
 
         .stat-label {
-            font-size: 10px;
+            font-size: clamp(8px, 2.2vw, 10px);
             color: var(--text-secondary);
             font-weight: 600;
             margin-bottom: 2px;
             text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .stat-value {
-            font-size: 16px;
+            font-size: clamp(14px, 4vw, 16px);
             font-weight: 800;
             color: var(--text-primary);
+            line-height: 1.2;
         }
 
         .stat-unit {
-            font-size: 10px;
+            font-size: clamp(8px, 2.2vw, 10px);
             color: var(--text-secondary);
             font-weight: 500;
         }
@@ -426,71 +433,82 @@
         /* Rain Card */
         .rain-card {
             background: linear-gradient(145deg, var(--accent), var(--accent-dark));
-            border-radius: 20px;
-            padding: 14px 18px;
+            border-radius: clamp(16px, 4vw, 20px);
+            padding: clamp(10px, 2.5vw, 14px) clamp(12px, 3vw, 18px);
             display: flex;
             align-items: center;
             justify-content: space-between;
             border: 1px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .rain-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: clamp(8px, 2vw, 12px);
+            min-width: 0;
+            flex: 1;
         }
 
         .rain-emoji {
-            font-size: 28px;
+            font-size: clamp(22px, 6vw, 30px);
+            flex-shrink: 0;
         }
 
         .rain-text {
             font-weight: 700;
             color: white;
-            font-size: 15px;
+            font-size: clamp(13px, 3.5vw, 15px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .rain-percent {
-            font-size: 24px;
+            font-size: clamp(18px, 5vw, 26px);
             font-weight: 800;
             color: white;
             background: rgba(255, 255, 255, 0.2);
-            padding: 4px 14px;
+            padding: clamp(2px, 1vw, 4px) clamp(8px, 3vw, 14px);
             border-radius: 30px;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         /* Section Titles */
         .section-title {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             color: white;
-            font-size: 18px;
+            font-size: clamp(16px, 4.5vw, 20px);
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: clamp(8px, 2vh, 12px);
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             flex-shrink: 0;
         }
 
         .section-title span:first-child {
-            font-size: 22px;
+            font-size: clamp(18px, 5vw, 24px);
         }
 
         /* Hourly Scroll */
         .hourly-scroll {
             display: flex;
-            gap: 10px;
+            gap: clamp(6px, 2vw, 10px);
             overflow-x: auto;
-            padding: 4px 0 16px;
+            padding: 4px 0 clamp(12px, 3vh, 16px);
             scrollbar-width: thin;
             -webkit-overflow-scrolling: touch;
             scroll-snap-type: x mandatory;
-            margin-bottom: 16px;
+            margin-bottom: clamp(12px, 3vh, 16px);
             flex-shrink: 0;
+            width: 100%;
         }
 
         .hourly-scroll::-webkit-scrollbar {
@@ -508,12 +526,12 @@
         }
 
         .hourly-item {
-            min-width: 70px;
+            min-width: clamp(60px, 20vw, 70px);
             background: var(--card-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-radius: 18px;
-            padding: 12px 6px;
+            border-radius: clamp(14px, 4vw, 18px);
+            padding: clamp(8px, 2vw, 12px) clamp(3px, 1vw, 6px);
             text-align: center;
             border: 1px solid var(--border-light);
             box-shadow: var(--shadow);
@@ -523,14 +541,14 @@
         .hourly-time {
             font-weight: 700;
             color: var(--text-primary);
-            font-size: 13px;
-            margin-bottom: 4px;
+            font-size: clamp(11px, 3vw, 13px);
+            margin-bottom: 2px;
         }
 
         .hourly-icon {
-            width: 36px;
-            height: 36px;
-            margin: 0 auto 4px;
+            width: clamp(28px, 8vw, 36px);
+            height: clamp(28px, 8vw, 36px);
+            margin: 0 auto 2px;
         }
 
         .hourly-icon img {
@@ -542,12 +560,12 @@
         .hourly-temp {
             font-weight: 800;
             color: var(--accent);
-            font-size: 15px;
+            font-size: clamp(13px, 3.5vw, 15px);
             margin-bottom: 2px;
         }
 
         .hourly-rain {
-            font-size: 10px;
+            font-size: clamp(9px, 2.5vw, 11px);
             color: var(--text-secondary);
             font-weight: 600;
         }
@@ -556,22 +574,24 @@
         .weekly-list {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            padding-bottom: 20px;
+            gap: clamp(6px, 1.5vh, 8px);
+            padding-bottom: clamp(16px, 4vh, 24px);
             flex-shrink: 0;
+            width: 100%;
         }
 
         .weekly-item {
             background: var(--card-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 12px 16px;
+            border-radius: clamp(16px, 4vw, 20px);
+            padding: clamp(10px, 2.5vw, 14px) clamp(12px, 3vw, 16px);
             display: flex;
             align-items: center;
             justify-content: space-between;
             border: 1px solid var(--border-light);
             box-shadow: var(--shadow);
+            width: 100%;
         }
 
         .weekly-item:active {
@@ -582,7 +602,7 @@
         .weekly-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: clamp(8px, 2vw, 12px);
             flex: 1;
             min-width: 0;
         }
@@ -590,13 +610,13 @@
         .weekly-day {
             font-weight: 700;
             color: var(--text-primary);
-            min-width: 65px;
-            font-size: 14px;
+            min-width: clamp(50px, 15vw, 65px);
+            font-size: clamp(12px, 3.2vw, 14px);
         }
 
         .weekly-icon {
-            width: 30px;
-            height: 30px;
+            width: clamp(24px, 7vw, 30px);
+            height: clamp(24px, 7vw, 30px);
             flex-shrink: 0;
         }
 
@@ -608,8 +628,8 @@
         .weekly-temp {
             font-weight: 800;
             color: var(--accent);
-            font-size: 15px;
-            min-width: 45px;
+            font-size: clamp(13px, 3.5vw, 15px);
+            min-width: clamp(35px, 10vw, 45px);
         }
 
         .weekly-rain {
@@ -618,7 +638,7 @@
             gap: 3px;
             color: var(--text-secondary);
             font-weight: 600;
-            font-size: 12px;
+            font-size: clamp(10px, 2.8vw, 12px);
             white-space: nowrap;
         }
 
@@ -628,7 +648,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 20px;
+            padding: clamp(30px, 10vh, 50px) clamp(15px, 5vw, 20px);
             background: var(--card-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -636,11 +656,12 @@
             border: 1px solid var(--border-light);
             flex: 1;
             min-height: 200px;
+            width: 100%;
         }
 
         .spinner {
-            width: 50px;
-            height: 50px;
+            width: clamp(40px, 12vw, 50px);
+            height: clamp(40px, 12vw, 50px);
             border-radius: 50%;
             border: 3px solid rgba(255, 255, 255, 0.1);
             border-top-color: var(--accent);
@@ -650,7 +671,7 @@
 
         .loading-text {
             color: white;
-            font-size: 15px;
+            font-size: clamp(13px, 3.5vw, 15px);
             font-weight: 500;
         }
 
@@ -661,13 +682,14 @@
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(239, 68, 68, 0.3);
             color: white;
-            padding: 14px 18px;
+            padding: clamp(12px, 3vw, 14px) clamp(14px, 4vw, 18px);
             border-radius: 20px;
             text-align: center;
             font-weight: 600;
-            font-size: 14px;
+            font-size: clamp(12px, 3.5vw, 14px);
             margin-bottom: 16px;
             flex-shrink: 0;
+            width: 100%;
         }
 
         @keyframes spin {
@@ -676,26 +698,6 @@
 
         .hidden {
             display: none !important;
-        }
-
-        /* Mobile optimizations */
-        @media (max-width: 360px) {
-            .app-container {
-                padding: 8px 12px;
-            }
-            
-            .city-name {
-                font-size: 22px;
-            }
-            
-            .temp-large {
-                font-size: 42px;
-            }
-            
-            .weekly-day {
-                min-width: 60px;
-                font-size: 13px;
-            }
         }
 
         /* iPhone safe area */
@@ -710,20 +712,12 @@
     </style>
 </head>
 <body>
-    <div class="app-container" id="appContainer">
+    <div class="app-container">
         <!-- Header -->
         <div class="app-header">
-            <div class="header-left">
-                <button class="icon-btn" style="visibility: hidden;">☰</button>
-            </div>
-            <span class="header-title">O'zbekiston Ob-havo</span>
-            <div class="header-right">
-                <button class="icon-btn" id="themeToggle">
-                    <span class="sun-icon">☀️</span>
-                    <span class="moon-icon" style="display: none;">🌙</span>
-                </button>
-                <button class="icon-btn" id="closeBtn">✕</button>
-            </div>
+            <button class="icon-btn" id="menuBtn">☰</button>
+            <h1 class="header-title">Ob-havo</h1>
+            <button class="icon-btn" id="themeToggle">🌙</button>
         </div>
 
         <!-- Location Card -->
@@ -732,80 +726,77 @@
                 <div class="location-badge">📍</div>
                 <div class="location-details">
                     <span class="location-label">JOYLASHUV</span>
-                    <span class="location-value" id="locationName">Aniqlanmoqda...</span>
+                    <span class="location-value" id="locationDisplay">Toshkent, O'zbekiston</span>
                 </div>
             </div>
-            <button class="refresh-btn" id="getLocationBtn">
+            <button class="refresh-btn" id="refreshBtn">
                 <span>🔄</span> Yangilash
             </button>
         </div>
 
-        <!-- Search Section -->
+        <!-- Search Section - 12 ta viloyat -->
         <div class="search-section">
             <div class="select-wrapper">
-                <select id="regionSelect">
-                    <option value="">Viloyatni tanlang</option>
-                    <option value="Toshkent">Toshkent</option>
-                    <option value="Samarqand">Samarqand</option>
-                    <option value="Buxoro">Buxoro</option>
-                    <option value="Farg'ona">Farg'ona</option>
-                    <option value="Andijon">Andijon</option>
-                    <option value="Namangan">Namangan</option>
-                    <option value="Qarshi">Qarshi</option>
-                    <option value="Termiz">Termiz</option>
-                    <option value="Guliston">Guliston</option>
-                    <option value="Jizzax">Jizzax</option>
-                    <option value="Navoiy">Navoiy</option>
-                    <option value="Urganch">Urganch</option>
-                    <option value="Nukus">Nukus</option>
+                <select id="citySelect">
+                    <option value="tashkent">Toshkent</option>
+                    <option value="samarkand">Samarqand</option>
+                    <option value="bukhara">Buxoro</option>
+                    <option value="khiva">Xiva</option>
+                    <option value="namangan">Namangan</option>
+                    <option value="andijan">Andijon</option>
+                    <option value="fergana">Farg'ona</option>
+                    <option value="qashqadaryo">Qashqadaryo (Qarshi)</option>
+                    <option value="surxondaryo">Surxondaryo (Termiz)</option>
+                    <option value="jizzax">Jizzax</option>
+                    <option value="sirdaryo">Sirdaryo (Guliston)</option>
+                    <option value="xorazm">Xorazm (Urganch)</option>
+                    <option value="navoiy">Navoiy</option>
                 </select>
             </div>
             <button class="search-btn" id="searchBtn">Qidirish</button>
         </div>
 
-        <!-- Loading -->
-        <div id="loading" class="loading-container hidden">
+        <!-- Loading State -->
+        <div class="loading-container" id="loadingIndicator">
             <div class="spinner"></div>
-            <div class="loading-text">Ma'lumotlar yuklanmoqda...</div>
+            <div class="loading-text">Ob-havo ma'lumotlari yuklanmoqda...</div>
         </div>
 
-        <!-- Error -->
-        <div id="errorMessage" class="error-message hidden"></div>
+        <!-- Error Message -->
+        <div class="error-message hidden" id="errorMessage">Xatolik yuz berdi</div>
 
-        <!-- Weather Data -->
-        <div id="weatherContainer" class="hidden">
-            <!-- Main Weather Card -->
+        <!-- Weather Content -->
+        <div id="weatherContent" class="hidden">
+            <!-- Weather Card -->
             <div class="weather-card">
                 <div class="city-header">
                     <h2 class="city-name" id="cityName">Toshkent</h2>
-                    <div class="current-date" id="currentDate"></div>
+                    <div class="current-date" id="currentDate">21 Fevral, 2025</div>
                 </div>
 
                 <div class="weather-visual">
-                    <img class="weather-icon-large" id="weatherIcon" src="" alt="weather">
-                    <div class="temp-large">
-                        <span id="currentTemp">--</span><small>°C</small>
-                    </div>
+                    <img src="https://openweathermap.org/img/wn/04d@2x.png" alt="weather" class="weather-icon-large" id="weatherIcon">
+                    <div class="temp-large" id="currentTemp">18°<small>C</small></div>
                 </div>
 
-                <div class="weather-desc" id="weatherDescription">--</div>
+                <div class="weather-desc" id="weatherDesc">Bulutli</div>
 
-                <!-- Sun Info -->
+                <!-- Sun Grid -->
                 <div class="sun-grid">
                     <div class="sun-item">
                         <span class="sun-emoji">🌅</span>
                         <span class="sun-label">Quyosh chiqishi</span>
-                        <span class="sun-value" id="sunrise">--:--</span>
+                        <span class="sun-value" id="sunrise">06:43</span>
+                    </div>
+                    <div class="sun-item">
+                        <span class="sun-emoji">☀️</span>
+                        <span class="sun-label">Kun davomiyligi</span>
+                        <span class="sun-value" id="dayLength">12s 24d</span>
                     </div>
                     <div class="sun-item">
                         <span class="sun-emoji">🌇</span>
                         <span class="sun-label">Quyosh botishi</span>
-                        <span class="sun-value" id="sunset">--:--</span>
-                    </div>
-                    <div class="sun-item">
-                        <span class="sun-emoji">⏳</span>
-                        <span class="sun-label">Kun uzunligi</span>
-                        <span class="sun-value" id="dayLength">--:--</span>
+                        <span class="sun-value" id="sunset">18:15</span>
                     </div>
                 </div>
 
@@ -814,401 +805,171 @@
                     <div class="stat-item">
                         <span class="stat-emoji">💧</span>
                         <span class="stat-label">Namlik</span>
-                        <span class="stat-value" id="humidity">--</span>
-                        <span class="stat-unit">%</span>
+                        <span class="stat-value" id="humidity">65<span class="stat-unit">%</span></span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-emoji">💨</span>
                         <span class="stat-label">Shamol</span>
-                        <span class="stat-value" id="windSpeed">--</span>
-                        <span class="stat-unit">m/s</span>
+                        <span class="stat-value" id="windSpeed">12<span class="stat-unit">km/s</span></span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-emoji">📊</span>
+                        <span class="stat-emoji">😷</span>
                         <span class="stat-label">Bosim</span>
-                        <span class="stat-value" id="pressure">--</span>
-                        <span class="stat-unit">hPa</span>
+                        <span class="stat-value" id="pressure">1012<span class="stat-unit">mb</span></span>
                     </div>
                 </div>
 
                 <!-- Rain Card -->
                 <div class="rain-card">
                     <div class="rain-left">
-                        <span class="rain-emoji">☔️</span>
+                        <span class="rain-emoji">☔</span>
                         <span class="rain-text">Yomg'ir ehtimoli</span>
                     </div>
-                    <span class="rain-percent" id="rainProbability">0%</span>
+                    <span class="rain-percent" id="rainChance">30%</span>
                 </div>
             </div>
 
             <!-- Hourly Forecast -->
             <div class="section-title">
-                <span>⏰</span>
-                <span>Soatlik prognoz</span>
+                <span>⏰</span> Soatlik ob-havo
             </div>
             <div class="hourly-scroll" id="hourlyForecast"></div>
 
             <!-- Weekly Forecast -->
             <div class="section-title">
-                <span>📅</span>
-                <span>7 kunlik prognoz</span>
+                <span>📅</span> 7 kunlik prognoz
             </div>
             <div class="weekly-list" id="weeklyForecast"></div>
         </div>
     </div>
 
     <script>
-        // Telegram Web App
-        const tg = window.Telegram?.WebApp;
-        if (tg) {
-            tg.expand(); // Expand to full height
-            tg.ready();
-            tg.setHeaderColor('#1a4d8c');
-            tg.setBackgroundColor('#1a4d8c');
-            tg.disableVerticalSwipes?.();
-            
-            // Set viewport height
-            const setViewportHeight = () => {
-                const vh = window.innerHeight * 0.01;
-                document.documentElement.style.setProperty('--vh', `${vh}px`);
-            };
-            
-            window.addEventListener('resize', setViewportHeight);
-            setViewportHeight();
+        // Telegram Web App integration
+        let tg = null;
+        try {
+            tg = window.Telegram?.WebApp;
+            if (tg) {
+                tg.expand();
+                tg.enableClosingConfirmation();
+            }
+        } catch (e) {
+            console.log('Telegram Web App not available');
         }
 
-        // DOM Elements
-        const elements = {
-            regionSelect: document.getElementById('regionSelect'),
-            searchBtn: document.getElementById('searchBtn'),
-            getLocationBtn: document.getElementById('getLocationBtn'),
-            closeBtn: document.getElementById('closeBtn'),
-            locationName: document.getElementById('locationName'),
-            loading: document.getElementById('loading'),
-            errorMessage: document.getElementById('errorMessage'),
-            weatherContainer: document.getElementById('weatherContainer'),
-            currentDate: document.getElementById('currentDate'),
-            cityName: document.getElementById('cityName'),
-            weatherIcon: document.getElementById('weatherIcon'),
-            currentTemp: document.getElementById('currentTemp'),
-            weatherDescription: document.getElementById('weatherDescription'),
-            sunrise: document.getElementById('sunrise'),
-            sunset: document.getElementById('sunset'),
-            dayLength: document.getElementById('dayLength'),
-            humidity: document.getElementById('humidity'),
-            windSpeed: document.getElementById('windSpeed'),
-            pressure: document.getElementById('pressure'),
-            rainProbability: document.getElementById('rainProbability'),
-            hourlyForecast: document.getElementById('hourlyForecast'),
-            weeklyForecast: document.getElementById('weeklyForecast')
-        };
-
-        // API Key
-        const API_KEY = 'bd5e378503939ddaee76f12ad7a97608';
-
-        // Week Days
-        const weekDays = ['Yakshanba', 'Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba'];
-
-        // Region Coordinates
-        const regionCoordinates = {
-            'Toshkent': { lat: 41.2995, lon: 69.2401 },
-            'Samarqand': { lat: 39.6270, lon: 66.9750 },
-            'Buxoro': { lat: 39.7747, lon: 64.4286 },
-            "Farg'ona": { lat: 40.3864, lon: 71.7864 },
-            'Andijon': { lat: 40.7821, lon: 72.3442 },
-            'Namangan': { lat: 40.9983, lon: 71.6726 },
-            'Qarshi': { lat: 38.8603, lon: 65.7895 },
-            'Termiz': { lat: 37.2242, lon: 67.2783 },
-            'Guliston': { lat: 40.4847, lon: 68.7833 },
-            'Jizzax': { lat: 40.1158, lon: 67.8422 },
-            'Navoiy': { lat: 40.1044, lon: 65.3792 },
-            'Urganch': { lat: 41.5500, lon: 60.6333 },
-            'Nukus': { lat: 42.4667, lon: 59.6000 }
-        };
-
-        // Theme Toggle
+        // Dark mode toggle
         const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        const sunIcon = document.querySelector('.sun-icon');
-        const moonIcon = document.querySelector('.moon-icon');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            themeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+        });
 
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const hour = new Date().getHours();
+        // Viloyatlar uchun ob-havo ma'lumotlari (mock)
+        const cityWeatherData = {
+            'tashkent': { temp: 18, desc: 'Bulutli', humidity: 65, wind: 12, pressure: 1012, rain: 30 },
+            'samarkand': { temp: 16, desc: 'Ochiq', humidity: 55, wind: 8, pressure: 1015, rain: 10 },
+            'bukhara': { temp: 22, desc: 'Ochiq', humidity: 40, wind: 10, pressure: 1010, rain: 5 },
+            'khiva': { temp: 20, desc: 'Ochiq', humidity: 45, wind: 15, pressure: 1008, rain: 0 },
+            'namangan': { temp: 17, desc: 'Yomg\'ir', humidity: 75, wind: 7, pressure: 1013, rain: 60 },
+            'andijan': { temp: 17, desc: 'Yomg\'ir', humidity: 78, wind: 6, pressure: 1013, rain: 65 },
+            'fergana': { temp: 19, desc: 'Bulutli', humidity: 70, wind: 8, pressure: 1014, rain: 40 },
+            'qashqadaryo': { temp: 21, desc: 'Ochiq', humidity: 35, wind: 12, pressure: 1011, rain: 0 },
+            'surxondaryo': { temp: 23, desc: 'Ochiq', humidity: 30, wind: 9, pressure: 1009, rain: 0 },
+            'jizzax': { temp: 18, desc: 'Bulutli', humidity: 50, wind: 11, pressure: 1012, rain: 20 },
+            'sirdaryo': { temp: 18, desc: 'Bulutli', humidity: 55, wind: 10, pressure: 1012, rain: 25 },
+            'xorazm': { temp: 21, desc: 'Ochiq', humidity: 42, wind: 14, pressure: 1010, rain: 0 },
+            'navoiy': { temp: 20, desc: 'Ochiq', humidity: 38, wind: 13, pressure: 1011, rain: 0 }
+        };
+
+        // Mock data for demonstration
+        function loadWeatherData() {
+            const selectedCity = document.getElementById('citySelect').value;
+            const cityName = document.getElementById('citySelect').options[document.getElementById('citySelect').selectedIndex].text;
+            const weather = cityWeatherData[selectedCity] || cityWeatherData['tashkent'];
             
-            if (savedTheme === 'dark' || (savedTheme === null && (hour >= 19 || hour < 6))) {
-                body.classList.add('dark-mode');
-                sunIcon.style.display = 'none';
-                moonIcon.style.display = 'inline';
-                if (tg) tg.setHeaderColor('#0f1a2b');
-            }
-        }
+            document.getElementById('loadingIndicator').classList.remove('hidden');
+            document.getElementById('weatherContent').classList.add('hidden');
+            document.getElementById('errorMessage').classList.add('hidden');
 
-        function toggleTheme() {
-            if (body.classList.contains('dark-mode')) {
-                body.classList.remove('dark-mode');
-                localStorage.setItem('theme', 'light');
-                sunIcon.style.display = 'inline';
-                moonIcon.style.display = 'none';
-                if (tg) tg.setHeaderColor('#1a4d8c');
-            } else {
-                body.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark');
-                sunIcon.style.display = 'none';
-                moonIcon.style.display = 'inline';
-                if (tg) tg.setHeaderColor('#0f1a2b');
-            }
-        }
-
-        themeToggle.addEventListener('click', toggleTheme);
-
-        // Close button
-        if (elements.closeBtn) {
-            elements.closeBtn.addEventListener('click', () => {
-                if (tg) {
-                    tg.close();
-                }
-            });
-        }
-
-        // Update Date
-        function updateDate() {
-            const now = new Date();
-            elements.currentDate.textContent = now.toLocaleDateString('uz-UZ', { 
-                year: 'numeric', month: 'long', day: 'numeric' 
-            });
-        }
-        updateDate();
-
-        // Format Time
-        function formatTime(timestamp) {
-            const date = new Date(timestamp * 1000);
-            return date.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' });
-        }
-
-        // Calculate Day Length
-        function calculateDayLength(sunrise, sunset) {
-            const diff = sunset - sunrise;
-            const hours = Math.floor(diff / 3600);
-            const minutes = Math.floor((diff % 3600) / 60);
-            return `${hours}:${minutes.toString().padStart(2, '0')}`;
-        }
-
-        // Get Weather Data
-        async function getWeatherData(lat, lon, location) {
-            try {
-                setLoading(true);
+            // Simulate API call
+            setTimeout(() => {
+                document.getElementById('loadingIndicator').classList.add('hidden');
+                document.getElementById('weatherContent').classList.remove('hidden');
                 
-                const [currentRes, forecastRes] = await Promise.all([
-                    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=uz`),
-                    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=uz`)
-                ]);
-
-                if (!currentRes.ok || !forecastRes.ok) throw new Error();
-
-                const current = await currentRes.json();
-                const forecast = await forecastRes.json();
-
-                displayWeatherData(current, forecast, location);
-            } catch (error) {
-                showError('Ma\'lumotlarni yuklashda xatolik yuz berdi');
-                console.error(error);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        // Display Weather Data
-        function displayWeatherData(current, forecast, location) {
-            // Current Weather
-            elements.cityName.textContent = location;
-            elements.weatherIcon.src = `https://openweathermap.org/img/wn/${current.weather[0].icon}@4x.png`;
-            elements.currentTemp.textContent = Math.round(current.main.temp);
-            elements.weatherDescription.textContent = current.weather[0].description;
-            
-            // Sun Times
-            elements.sunrise.textContent = formatTime(current.sys.sunrise);
-            elements.sunset.textContent = formatTime(current.sys.sunset);
-            elements.dayLength.textContent = calculateDayLength(current.sys.sunrise, current.sys.sunset);
-            
-            // Stats
-            elements.humidity.textContent = current.main.humidity;
-            elements.windSpeed.textContent = current.wind.speed.toFixed(1);
-            elements.pressure.textContent = current.main.pressure;
-
-            // Rain Probability
-            const rain = current.rain ? current.rain['1h'] || current.rain['3h'] || 0 : 0;
-            const rainProb = rain > 0 ? Math.min(Math.round(rain * 20), 100) : Math.round((current.clouds?.all || 0) * 0.3);
-            elements.rainProbability.textContent = `${rainProb}%`;
-
-            // Hourly Forecast
-            elements.hourlyForecast.innerHTML = '';
-            forecast.list.slice(0, 8).forEach(item => {
-                const hour = new Date(item.dt * 1000).getHours().toString().padStart(2, '0') + ':00';
-                const rainChance = item.pop ? Math.round(item.pop * 100) : 0;
+                // Update location display
+                document.getElementById('locationDisplay').textContent = cityName + ', O\'zbekiston';
+                document.getElementById('cityName').textContent = cityName;
                 
-                const hourlyItem = document.createElement('div');
-                hourlyItem.className = 'hourly-item';
-                hourlyItem.innerHTML = `
-                    <div class="hourly-time">${hour}</div>
-                    <div class="hourly-icon">
-                        <img src="https://openweathermap.org/img/wn/${item.weather[0].icon}.png" alt="icon" loading="lazy">
-                    </div>
-                    <div class="hourly-temp">${Math.round(item.main.temp)}°C</div>
-                    <div class="hourly-rain">☔️ ${rainChance}%</div>
-                `;
-                elements.hourlyForecast.appendChild(hourlyItem);
-            });
-
-            // Weekly Forecast
-            elements.weeklyForecast.innerHTML = '';
-            const daily = {};
-            forecast.list.forEach(item => {
-                const date = new Date(item.dt * 1000).toDateString();
-                if (!daily[date]) {
-                    daily[date] = item;
-                }
-            });
-
-            Object.values(daily).slice(0, 7).forEach((day, index) => {
-                const date = new Date(day.dt * 1000);
-                const dayName = index === 0 ? 'Bugun' : index === 1 ? 'Ertaga' : weekDays[date.getDay()];
-                const rainChance = day.pop ? Math.round(day.pop * 100) : 0;
+                // Update weather data
+                document.getElementById('currentTemp').innerHTML = weather.temp + '°<small>C</small>';
+                document.getElementById('weatherDesc').textContent = weather.desc;
+                document.getElementById('humidity').innerHTML = weather.humidity + '<span class="stat-unit">%</span>';
+                document.getElementById('windSpeed').innerHTML = weather.wind + '<span class="stat-unit">km/s</span>';
+                document.getElementById('pressure').innerHTML = weather.pressure + '<span class="stat-unit">mb</span>';
+                document.getElementById('rainChance').textContent = weather.rain + '%';
                 
-                const weeklyItem = document.createElement('div');
-                weeklyItem.className = 'weekly-item';
-                weeklyItem.innerHTML = `
-                    <div class="weekly-left">
-                        <span class="weekly-day">${dayName}</span>
-                        <div class="weekly-icon">
-                            <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png" alt="icon" loading="lazy">
+                // Update date
+                document.getElementById('currentDate').textContent = new Date().toLocaleDateString('uz-UZ', { 
+                    day: 'numeric', 
+                    month: 'long', 
+                    year: 'numeric' 
+                });
+                
+                // Populate hourly forecast
+                const hourlyHtml = [];
+                for (let i = 0; i < 8; i++) {
+                    const time = new Date();
+                    time.setHours(time.getHours() + i);
+                    const hourTemp = weather.temp - 2 + Math.floor(Math.random() * 5);
+                    const hourRain = Math.max(0, weather.rain - 10 + Math.floor(Math.random() * 20));
+                    hourlyHtml.push(`
+                        <div class="hourly-item">
+                            <div class="hourly-time">${time.getHours()}:00</div>
+                            <div class="hourly-icon"><img src="https://openweathermap.org/img/wn/04d.png" alt=""></div>
+                            <div class="hourly-temp">${hourTemp}°</div>
+                            <div class="hourly-rain">${hourRain}%</div>
                         </div>
-                        <span class="weekly-temp">${Math.round(day.main.temp)}°C</span>
-                    </div>
-                    <div class="weekly-rain">
-                        <span>☔️</span>
-                        <span>${rainChance}%</span>
-                    </div>
-                `;
-                elements.weeklyForecast.appendChild(weeklyItem);
-            });
-
-            elements.weatherContainer.classList.remove('hidden');
-        }
-
-        // Get Current Location
-        function getCurrentLocation() {
-            if (!navigator.geolocation) {
-                showError('Brauzeringiz joylashuvni qo\'llab-quvvatlamaydi');
-                return;
-            }
-
-            setLoading(true);
-            elements.locationName.textContent = 'Aniqlanmoqda...';
-
-            navigator.geolocation.getCurrentPosition(
-                async (position) => {
-                    const { latitude, longitude } = position.coords;
-                    
-                    try {
-                        const res = await fetch(
-                            `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${API_KEY}`
-                        );
-                        const data = await res.json();
-                        
-                        let city = data[0]?.name || 'Sizning joylashuvingiz';
-                        elements.locationName.textContent = city;
-                        await getWeatherData(latitude, longitude, city);
-                    } catch {
-                        elements.locationName.textContent = 'Joylashuv topildi';
-                        await getWeatherData(latitude, longitude, 'Sizning joylashuvingiz');
-                    }
-                },
-                (error) => {
-                    setLoading(false);
-                    let message = 'Joylashuv aniqlanmadi';
-                    if (error.code === 1) message = 'Iltimos, joylashuvga ruxsat bering';
-                    else if (error.code === 2) message = 'Joylashuv mavjud emas';
-                    else if (error.code === 3) message = 'So\'rov vaqti tugadi';
-                    
-                    showError(message);
-                    elements.locationName.textContent = 'Ruxsat berilmagan';
-                    
-                    // Fallback to Tashkent
-                    setTimeout(() => {
-                        elements.regionSelect.value = 'Toshkent';
-                        searchWeather();
-                    }, 1000);
-                },
-                {
-                    enableHighAccuracy: true,
-                    timeout: 10000,
-                    maximumAge: 0
+                    `);
                 }
-            );
+                document.getElementById('hourlyForecast').innerHTML = hourlyHtml.join('');
+
+                // Populate weekly forecast
+                const days = ['Yak', 'Dush', 'Sesh', 'Chor', 'Pay', 'Jum', 'Shan'];
+                const weeklyHtml = [];
+                for (let i = 0; i < 7; i++) {
+                    const dayIndex = (new Date().getDay() + i) % 7;
+                    const dayTemp = weather.temp - 3 + Math.floor(Math.random() * 8);
+                    const dayRain = Math.max(0, weather.rain - 15 + Math.floor(Math.random() * 30));
+                    weeklyHtml.push(`
+                        <div class="weekly-item">
+                            <div class="weekly-left">
+                                <span class="weekly-day">${days[dayIndex]}</span>
+                                <div class="weekly-icon"><img src="https://openweathermap.org/img/wn/04d.png" alt=""></div>
+                                <span class="weekly-temp">${dayTemp}°</span>
+                            </div>
+                            <div class="weekly-rain">
+                                <span>🌧️</span> ${dayRain}%
+                            </div>
+                        </div>
+                    `);
+                }
+                document.getElementById('weeklyForecast').innerHTML = weeklyHtml.join('');
+            }, 800);
         }
 
-        // Search by Region
-        async function searchWeather() {
-            const region = elements.regionSelect.value;
-            if (!region) {
-                showError('Iltimos, viloyatni tanlang');
-                return;
-            }
-            
-            const coords = regionCoordinates[region];
-            if (coords) {
-                elements.locationName.textContent = region;
-                await getWeatherData(coords.lat, coords.lon, region);
-            }
-        }
-
-        // Loading State
-        function setLoading(isLoading) {
-            if (isLoading) {
-                elements.loading.classList.remove('hidden');
-                elements.weatherContainer.classList.add('hidden');
-                elements.errorMessage.classList.add('hidden');
-            } else {
-                elements.loading.classList.add('hidden');
-            }
-        }
-
-        // Show Error
-        function showError(message) {
-            elements.errorMessage.textContent = message;
-            elements.errorMessage.classList.remove('hidden');
-            setTimeout(() => {
-                elements.errorMessage.classList.add('hidden');
-            }, 4000);
-        }
-
-        // Event Listeners
-        elements.searchBtn.addEventListener('click', searchWeather);
-        elements.getLocationBtn.addEventListener('click', getCurrentLocation);
-        
-        // Enter key on select
-        elements.regionSelect.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') searchWeather();
+        // Event listeners
+        document.getElementById('searchBtn').addEventListener('click', loadWeatherData);
+        document.getElementById('refreshBtn').addEventListener('click', loadWeatherData);
+        document.getElementById('menuBtn').addEventListener('click', () => {
+            alert('Menu');
         });
 
-        // Touch optimization
-        document.addEventListener('touchstart', () => {}, { passive: true });
+        // Initial load
+        loadWeatherData();
 
-        // Initialize
-        initTheme();
-        updateDate();
-
-        // Auto-load on start
-        window.addEventListener('load', () => {
-            setTimeout(getCurrentLocation, 500);
-        });
-
-        // Handle orientation change
-        window.addEventListener('orientationchange', () => {
-            setTimeout(() => {
-                if (tg) tg.expand();
-            }, 100);
+        // Handle city selection
+        document.getElementById('citySelect').addEventListener('change', (e) => {
+            // loadWeatherData() is called by search button
+            // Just update display when search is clicked
         });
     </script>
 </body>
